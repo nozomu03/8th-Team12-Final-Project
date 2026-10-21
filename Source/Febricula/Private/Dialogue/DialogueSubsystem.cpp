@@ -1335,19 +1335,20 @@ void UDialogueSubsystem::ExecuteAction(const FGameAction& Action)
 							UE_LOG(LogTemp, Warning, TEXT("레벨 자동 식별 실패"));
 							break;
 						}
-						if (const TSoftObjectPtr<UWorld>* Level = ActivitySetting->Levels.Find(TargetLevelName))
+						if (const FLevelSettingStruct* Level = ActivitySetting->Levels.Find(TargetLevelName))
 						{
+							
 							FGameAction QueuedAction = FGameAction(EGameActionType::ChangeLevel, TargetLevelName, TEXT("false"), 0);
 							QueuedLevelChange.Add(QueuedAction);
 						}
 					}
 				}
 			}
-			if (const TSoftObjectPtr<UWorld>* Level = ActivitySetting->Levels.Find(Action.Key))
+			if (const FLevelSettingStruct* Level = ActivitySetting->Levels.Find(Action.Key))
 			{
 				if (!Action.Key2.ToString().ToBool())
 				{
-					UGameplayStatics::OpenLevelBySoftObjectPtr(this, *Level);
+					UGameplayStatics::OpenLevelBySoftObjectPtr(this, Level->Level);
 					if (Progress)
 					{
 						Progress->AddMoveHistory(FName(Action.Key));

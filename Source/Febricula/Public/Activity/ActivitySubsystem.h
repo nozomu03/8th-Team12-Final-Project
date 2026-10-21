@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "ActivityDefinition.h"
 #include "GameplayTagContainer.h"
+#include "GameMode/LevelSettingStruct.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "ActivitySubsystem.generated.h"
 
@@ -39,7 +40,7 @@ public:
 	void CheckCurrentAP();
 	
 	UFUNCTION(BlueprintCallable)
-	FString FindLevelKey(const UWorld* World, const TMap<FName, TSoftObjectPtr<UWorld>>& Levels);
+	FString FindLevelKey(const UWorld* World, const TMap<FName, FLevelSettingStruct>& Levels);
 	
 	// ---- 세이브/로드 ----
 	

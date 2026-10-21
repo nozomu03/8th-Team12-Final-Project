@@ -50,9 +50,4 @@ protected:
 
 	/** Returns true if the player should use UMG touch controls */
 	bool ShouldUseTouchControls() const;
-	
-	UPROPERTY(EditAnywhere, Category = "UI | Date Print")
-	TSubclassOf<UUserWidget> DateWidgetClass;
-	UPROPERTY()
-	TObjectPtr<UUserWidget> DateWidget;
 };

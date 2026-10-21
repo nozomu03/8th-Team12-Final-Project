@@ -229,7 +229,7 @@ bool UTimeSubsystem::IsWeekend() const
 	return ((AbsoluteDay - 1) % 7) >= 5;
 }
 
-FText UTimeSubsystem::GetDayName() const
+FString UTimeSubsystem::GetDayName() const
 {
 	const UEnum* E = StaticEnum<EDateName>();
 	const int32 Count = E->NumEnums() - 1;    
@@ -238,10 +238,10 @@ FText UTimeSubsystem::GetDayName() const
 
 	if (Index >= 0 && Index < Count)
 	{
-		return E->GetDisplayNameTextByIndex(Index);        // 식별자 이름
+		return E->GetNameStringByIndex(Index);        // 식별자 이름
 	}
 
-	return FText::GetEmpty();
+	return FString();
 }
 
 // 시간대에 따른 태양각 조절을 위한 임시 로직

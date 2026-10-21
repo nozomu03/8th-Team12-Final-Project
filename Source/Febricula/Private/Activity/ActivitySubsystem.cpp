@@ -222,14 +222,14 @@ void UActivitySubsystem::CheckCurrentAP()
 	}
 }
 
-FString UActivitySubsystem::FindLevelKey(const UWorld* World, const TMap<FName, TSoftObjectPtr<UWorld>>& Levels)
+FString UActivitySubsystem::FindLevelKey(const UWorld* World, const TMap<FName, FLevelSettingStruct>& Levels)
 {
 	if (!World) return FString();
 
 	const FString Current = UWorld::RemovePIEPrefix(World->GetPackage()->GetName());
-	for (const TPair<FName, TSoftObjectPtr<UWorld>>& Pair : Levels)
+	for (const TPair<FName, FLevelSettingStruct>& Pair : Levels)
 	{
-		if (Pair.Value.ToSoftObjectPath().GetLongPackageName() == Current)
+		if (Pair.Value.Level.ToSoftObjectPath().GetLongPackageName() == Current)
 		{
 			return Pair.Key.ToString();
 		}
@@ -268,7 +268,7 @@ void UActivitySubsystem::GoHome()
 	if (CurrentAP == 0)
 	{
 		const UActivitySetting* AS = GetDefault<UActivitySetting>();
-		UGameplayStatics::OpenLevelBySoftObjectPtr(this, *AS->Levels.Find("Room"));
+		UGameplayStatics::OpenLevelBySoftObjectPtr(this, AS->Levels.Find("Room")->Level);
 	}
 }
 

@@ -341,13 +341,13 @@ bool UGameProgressSubsystem::EvaluateCondition(const FGameCondition& Condition) 
 		const UActivitySetting* ActivitySetting = GetDefault<UActivitySetting>();
 		if (!ActivitySetting) return false;
 
-		if (const TSoftObjectPtr<UWorld>* TargetLevel = ActivitySetting->Levels.Find(Condition.Key))
+		if (const FLevelSettingStruct* TargetLevel = ActivitySetting->Levels.Find(Condition.Key))
 		{
-			if (TargetLevel->IsNull()) return false;
+			if (TargetLevel->Level.IsNull()) return false;
 			if (const UWorld* NowLevel = GetWorld())
 			{
 				const FString NowName = UWorld::RemovePIEPrefix(NowLevel->GetOutermost()->GetName());
-				return NowName == TargetLevel->ToSoftObjectPath().GetLongPackageName();
+				return NowName == TargetLevel->Level.ToSoftObjectPath().GetLongPackageName();
 			}
 		}
 		return false;
@@ -358,13 +358,13 @@ bool UGameProgressSubsystem::EvaluateCondition(const FGameCondition& Condition) 
 		const UActivitySetting* ActivitySetting = GetDefault<UActivitySetting>();
 		if (!ActivitySetting) return false;
 
-		if (const TSoftObjectPtr<UWorld>* TargetLevel = ActivitySetting->Levels.Find(Condition.Key))
+		if (const FLevelSettingStruct* TargetLevel = ActivitySetting->Levels.Find(Condition.Key))
 		{
-			if (TargetLevel->IsNull()) return false;
+			if (TargetLevel->Level.IsNull()) return false;
 			if (const UWorld* NowLevel = GetWorld())
 			{
 				const FString NowName = UWorld::RemovePIEPrefix(NowLevel->GetOutermost()->GetName());
-				return NowName != TargetLevel->ToSoftObjectPath().GetLongPackageName();
+				return NowName != TargetLevel->Level.ToSoftObjectPath().GetLongPackageName();
 			}
 		}
 		return false;

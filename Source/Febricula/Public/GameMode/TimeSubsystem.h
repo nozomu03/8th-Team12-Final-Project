@@ -126,7 +126,7 @@ public:
 	bool IsWeekend() const;
 
 	UFUNCTION(BlueprintPure)
-	FText GetDayName() const;
+	FString GetDayName() const;
 	
 	UFUNCTION(BlueprintPure)
 	FString GetNowSchedulePoint() const;
@@ -166,6 +166,9 @@ public:
 	const FScheduleDef& GetNowSchedule() const { return NowSchedule; }
 	FName GetNowScheduleName() const { return FName(NowSchedule.ScheduleName.ToString()); }
 	
+	UFUNCTION(BlueprintCallable)
+	FText GetNowScheduleText() const { return NowSchedule.ScheduleString; }
+	
 	UFUNCTION(BlueprintCallable, Category = "TimeSubsystem | Schedule")
 	FGameplayTagContainer GetScheduleBlock(FName Key) const { return ScheduleGroupMap.FindRef(Key); }
 
@@ -176,6 +179,7 @@ public:
 	 * 배열이 비어 있거나 인덱스가 어긋나면 검사 없이 접근해서 그 자리에서 크래시가 난다.
 	 * 호출부에서 if (const FScheduleDef* Def = ...) 형태로 받으면 안전하게 넘어간다.
 	 */
+	
 	const FScheduleDef* GetScheduleByIndex(int32 Index) const;
 	const FScheduleDef* GetScheduleByTag(FGameplayTag Tag) const;
 

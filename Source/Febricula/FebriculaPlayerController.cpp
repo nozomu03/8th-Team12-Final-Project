@@ -36,11 +36,6 @@ void AFebriculaPlayerController::BeginPlay()
 		}
 
 	}
-	DateWidget = CreateWidget<UUserWidget>(this, DateWidgetClass);
-	if (DateWidget)
-	{
-		DateWidget->AddToViewport();
-	}
 }
 
 void AFebriculaPlayerController::SetupInputComponent()

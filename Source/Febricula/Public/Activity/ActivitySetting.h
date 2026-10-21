@@ -4,11 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DeveloperSettings.h"
+#include "GameMode/LevelSettingStruct.h"
 #include "ActivitySetting.generated.h"
 
 /**
  * 
  */
+
 UCLASS(Config = Game, DefaultConfig, meta = (DisplayName = "Activity Setting"))
 class FEBRICULA_API UActivitySetting : public UDeveloperSettings
 {
@@ -19,7 +21,7 @@ public:
 	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly, Category = "Event Default")
 	TSoftObjectPtr<UDataTable> FixedDialogueAsset;
 	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly, Category="Event Default")
-	TMap<FName, TSoftObjectPtr<UWorld>> Levels;
+	TMap<FName, FLevelSettingStruct> Levels;
 	
 	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly, Category = "Sound Table")
 	TSoftObjectPtr<	UDataTable> SoundTable;

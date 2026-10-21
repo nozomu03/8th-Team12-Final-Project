@@ -28,6 +28,9 @@ struct FScheduleDef
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Febricula | ScheduleDef")
 	FGameplayTag ScheduleName;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Febricula | ScheduleDef")
+	FText ScheduleString;
+	
 	/** 이 시간대에 쓸 수 있는 행동력 */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Febricula | ScheduleDef")
 	int32 ActionPoint = 0;
