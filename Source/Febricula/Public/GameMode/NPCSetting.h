@@ -20,7 +20,11 @@ class FEBRICULA_API UNPCSetting : public UDeveloperSettings
 public:
 	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly, Category = "NPC Character Map")
 	TMap<FName, TSoftClassPtr<ABaseNpcCharacter>> NPCCharacterMap;
-
+	
+	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly, Category = "Main Npc | Name Table", meta = (RequiredAssetDataTags = "RowStructure=/Script/Febricula.NpcName"))
+	TSoftObjectPtr<UDataTable> NpcNameTable;
+	
+	
 	// [skydodo] 2026-09-30 추가: 행인 기본 아키타입 테이블 설정
 	/**
 	 * 행인(서브 NPC) 기본 아키타입 테이블 (FSubNpcArchetypeRow).

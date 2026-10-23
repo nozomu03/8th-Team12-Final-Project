@@ -234,7 +234,7 @@ FString UTimeSubsystem::GetDayName() const
 	const UEnum* E = StaticEnum<EDateName>();
 	const int32 Count = E->NumEnums() - 1;    
 	int32 Index = 0;
-	Index = (AbsoluteDay-1) / 7;
+	Index = (AbsoluteDay-1) % 7;
 
 	if (Index >= 0 && Index < Count)
 	{

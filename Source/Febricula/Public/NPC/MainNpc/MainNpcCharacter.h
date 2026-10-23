@@ -146,8 +146,14 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "NPC|Main")
 	void OnTalkEnded();
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "NPC|Main")
+	FText NpcName;
+	
+	
+	
 	UNpcAffinitySubsystem* GetRelationshipSubsystem() const;
 
+	
 	/**
 	 * Talk/Follow처럼 게임플레이가 직접 이동을 지시하는 스크립트 구간 동안
 	 * AMainNpcAIController의 Behavior Tree(Idle/Patrol/Chase)가 끼어들어 목적지를

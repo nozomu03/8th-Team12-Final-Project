@@ -525,7 +525,7 @@
   {
     "Name": "FirstPassive_01_001",
     "SpeakerName": "???",
-    "SpeakerNpcId": "None",
+    "SpeakerNpcId": "NPC_Suah",
     "Text": "아, 아니에요... 그... 죄... 죄송합니다...",
     "OnEnterActions": [
       {
@@ -568,7 +568,7 @@
   {
     "Name": "FirstActive_01",
     "SpeakerName": "???",
-    "SpeakerNpcId": "None",
+    "SpeakerNpcId": "NPC_Suah",
     "Text": "으... 으으...",
     "OnEnterActions": [
       {
@@ -653,7 +653,7 @@
   {
     "Name": "Suah_005_001",
     "SpeakerName": "???",
-    "SpeakerNpcId": "None",
+    "SpeakerNpcId": "NPC_Suah",
     "Text": "네? 아.... 아니, 네... 그... 네...",
     "OnEnterActions": [],
     "Choices": [],
@@ -761,7 +761,7 @@
   {
     "Name": "Suah_005_004",
     "SpeakerName": "???",
-    "SpeakerNpcId": "None",
+    "SpeakerNpcId": "NPC_Suah",
     "Text": "어, 어떤 책인...가요...",
     "OnEnterActions": [],
     "Choices": [],
@@ -833,7 +833,7 @@
   {
     "Name": "Suah_005_006",
     "SpeakerName": "???",
-    "SpeakerNpcId": "None",
+    "SpeakerNpcId": "NPC_Suah",
     "Text": "그 책이면... 제... 제일 안 쪽에서... 두 번 째 서가에 있을... 거에요...",
     "OnEnterActions": [],
     "Choices": [],

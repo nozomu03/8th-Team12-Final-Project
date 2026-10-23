@@ -1,6 +1,6 @@
 ﻿@cast 서아 = "이서아" NPC_Suah
 @cast 천율 = "강천율" PC_GangChunyul
-@cast ??? = "???"
+@cast ??? = "???" NPC_Suah
 
 @label Suah_Default
 서아: 아.

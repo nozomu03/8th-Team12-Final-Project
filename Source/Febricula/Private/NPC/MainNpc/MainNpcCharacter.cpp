@@ -56,6 +56,11 @@ void AMainNpcCharacter::BeginPlay()
 	default:
 		break;
 	}
+	
+	if (NpcId != NAME_None)
+	{
+		
+	}
 }
 
 FText AMainNpcCharacter::GetInteractionPrompt_Implementation(AActor* Interactor) const
