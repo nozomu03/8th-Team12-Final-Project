@@ -200,6 +200,10 @@ public:
 	FTransform GetDefaultTransform(FName NpcId);
 	
 	bool CheckNpcCached(FName NpcName) const;
+	
+	void SetQueuedDiceRoll(FDiceRollRow Row) { QueuedDiceRoll = Row; }
+	FDiceRollRow& GetQueuedDiceRoll() { return QueuedDiceRoll; }
+
 
 protected:
 	/** 노드로 진입해서 OnEnterActions 실행 + 대사 출력까지 */
@@ -313,5 +317,7 @@ protected:
 	
 	int32 RoutingHopCount = 0;
 	static constexpr int32 MaxRoutingHops = 16;
+	
+	FDiceRollRow QueuedDiceRoll;
 };
 

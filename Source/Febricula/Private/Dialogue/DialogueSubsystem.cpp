@@ -730,6 +730,11 @@ void UDialogueSubsystem::EnterNode(FName NodeId)
 			}
 		}
 	}
+	
+	if (!Row->DiceRoll.IsEmpty())
+	{
+		QueuedDiceRoll = Row->DiceRoll;
+	}
 		
 	ExecuteActions(Row->OnEnterActions);
 

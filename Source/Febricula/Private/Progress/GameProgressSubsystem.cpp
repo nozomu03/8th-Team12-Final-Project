@@ -10,6 +10,7 @@
 #include "GameplayTagContainer.h"
 #include "Activity/ActivitySetting.h"
 #include "Activity/ActivitySubsystem.h"
+#include "Dialogue/DialogueSubsystem.h"
 #include "GameMode/TimeSettings.h"
 #include "Net/Core/PushModel/PushModel.h"
 #include "NPC/MainNpc/NpcAffinitySubsystem.h"
@@ -331,9 +332,28 @@ bool UGameProgressSubsystem::EvaluateCondition(const FGameCondition& Condition) 
 	{
 		// 1d20 + (Key 능력치 보정) >= Value 이면 성공.
 		// 실패 시 친밀도 하락 같은 처리는 분기(FDialogueBranch) 쪽에서 하도록 데이터에 맡긴다.
-		const int32 Bonus = Condition.Key.IsNone() ? 0 : GetStat(Condition.Key);
-		const int32 Roll = FMath::RandRange(1, 20);
-		return (Roll + Bonus) >= Condition.Value;
+		int32 Bonus = 0;
+		int32 Rolled = 0;
+
+		if (UDialogueSubsystem* DialogueSubsystem = GetWorld()->GetSubsystem<UDialogueSubsystem>())
+		{
+			FDiceRollRow Row = DialogueSubsystem->GetQueuedDiceRoll();
+			if (!Row.IsEmpty())
+			{
+				Bonus = (Condition.Key.IsNone() ? 0: GetStat(Condition.Key)) / 10;
+				for (int32 i = 0; i < Row.DiceCount; i++)
+				{
+					Rolled += FMath::RandRange(1, Row.DiceType);
+				}
+			}
+			else
+			{
+				Bonus = (Condition.Key.IsNone() ? 0 : GetStat(Condition.Key)) / 10;
+				Rolled = FMath::RandRange(1, 20);	
+			}
+		}
+			
+		return (Rolled + Bonus) >= Condition.Value;
 	}
 
 	case EGameConditionType::NowLevel:

@@ -1,8 +1,10 @@
 // 진입점
 @label Library_Chair1
+@DiceRoll 1 6 3 
 앉을까?
 @menu YesNo
 - 자습한다 -> StudyLibrary1
+- 독서한다 -> NovelLibrary1
 - 그만둔다 -> Cancle_Root
 @end
 
@@ -47,6 +49,44 @@
 @Teleport Player PlayerStart
 @AddStat Int 3
 @FinishActivity Study
+@Teleport CheonStudyEnd
+@end
+
+@label NovelLibrary1
+@FadeOut Black 3
+@hide
+@wait .3
+
+@label NovelLibrary2
+@Interact Chair true
+@cam Loc -835.8 565.5 101.4 Rot 0 -9.700671 -153.0 .1 180
+@Teleport Player CheonStudy 
+@PlayAnim Player SitMale 1
+@hide
+@wait .3
+
+@label NovelLibrary3
+@FadeIn 1
+@hide
+@wait 1
+
+@label NovelLibrary4
+서가에서 골라온 소설책을 읽었다.
+
+
+@FadeOut Black 3
+@hide
+@wait .3
+
+@label NovelLibrary5
+@StopAnim Player
+@cam reset
+@FadeIn 3
+@wait .3
+@Teleport Player PlayerStart
+@AddStat Int 3
+@FinishActivity Study
+@Teleport CheonStudyEnd
 @end
 
 

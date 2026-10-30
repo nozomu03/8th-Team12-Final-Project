@@ -115,8 +115,23 @@ class Branch:
             "Conditions": [c.to_json() for c in self.conditions],
             "NextNodeId": self.target,
         }
- 
- 
+
+
+@dataclass
+class DiceRoll:
+    dice_count: int
+    dice_type: int
+    success_condition: int
+    bighit_condition: int
+
+    def to_json(self):
+        return{
+            "DiceCount": self.dice_count,
+            "DiceType": self.dice_type,
+            "Success": self.success_condition,
+            "BitHit": self.bighit_condition
+        }
+
 @dataclass
 class Choice:
     text: str
@@ -134,7 +149,7 @@ class Choice:
             "YesNo": self.yes_no,
             "NextNodeId": self.target or EMPTY,
         }
- 
+
  
 @dataclass
 class Node:
@@ -157,6 +172,8 @@ class Node:
     cam_rot: tuple = (0.0, 0.0, 0.0)     # 디테일 패널 순서: X=Roll, Y=Pitch, Z=Yaw
     cam_blend: float = 0.0
     cam_focus: float = 100000.00
+
+    dice_roll: DiceRoll = None
 
     se_channel = ""
     se_name = ""
@@ -194,6 +211,7 @@ class Node:
                 "MoveTime": self.cam_blend,
                 "Focus": self.cam_focus,
             },
+            "DiceRoll": self.dice_roll.to_json() if self.dice_roll else None,
             "SoundLocation": {
                 "SoundChannel": self.se_channel,
                 "SoundName": self.se_name,
@@ -227,6 +245,7 @@ class Parser:
         self.p_auto = None      # (mode, value, npc)
         self.p_hide = False
         self.p_cam = None       # (mode, loc, rot, blend)
+        self.p_dice = None
         self.p_se = None        # (channel, name, target, blend)
         self.p_line = 0
  
@@ -310,6 +329,13 @@ class Parser:
             else:
                 node.cam_mode, node.cam_loc, node.cam_rot, node.cam_blend, node.cam_focus = self.p_cam
             self.p_cam = None
+
+        if self.p_dice:
+            if len(self.p_dice) == 4:
+                node.dice_roll = DiceRoll(self.p_dice[0], self.p_dice[1], self.p_dice[2], self.p_dice[3])
+            else:
+                self.p_cam = None
+
 
         if self.p_se:
             if len(self.p_se) == 2:
@@ -544,6 +570,10 @@ class Parser:
                     self.mark_pending(line_no)
                     self.cmd_cam(args, line_no)
 
+                elif low == "diceroll":
+                    self.mark_pending(line_no)
+                    self.cmd_dice(args, line_no)
+
                 elif low == "playse3d":
                     self.mark_pending(line_no)
                     self.cmd_se(args, line_no)
@@ -683,7 +713,7 @@ class Parser:
  
         loc, rot, blend, focus, seen = None, None, 0.0, 10000.0, None
         buffer = []
- 
+
         def flush():
             nonlocal loc, rot
             if seen is None:
@@ -732,6 +762,31 @@ class Parser:
             self.error(line_no, f"@cam 전환 시간이 음수: {blend}")
             return
         self.p_cam = ("Cinematic", loc, rot, blend, focus)
+
+    def cmd_dice(self, args, line_no):
+        if self.p_dice is not None:
+            self.warn(line_no, "@DiceRoll 이 연속으로 지정됨 - 마지막 것만 적용")
+
+        now_attribute = []
+        attribute_tuple = ("Count", "Type", "Success", "BigHit")
+        attribute_index = 0
+
+        for arg in args:
+            try:
+                _tmp = int(arg)
+                now_attribute.append(_tmp)
+            except:
+                if attribute_tuple[attribute_index] != arg:
+                    self.error(line_no, "@DiceRoll에 허가되지 않은 어트리뷰트가 제공됨")
+                    break
+                else:
+                    attribute_index += 1
+
+        if len(now_attribute) == 3:
+            self.warn(line_no, "@DiceRoll에 대성공 기준치가 입력되지 않음. 최댓값으로 폴백")
+            now_attribute.append(int(now_attribute[0]) * int(now_attribute[1]))
+        self.p_dice = tuple(now_attribute)
+
 
     def cmd_se(self, args, line_no):
         if not args:

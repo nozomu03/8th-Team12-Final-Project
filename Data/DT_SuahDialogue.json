@@ -39,6 +39,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -90,6 +91,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -141,6 +143,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -202,6 +205,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -245,6 +249,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -294,6 +299,7 @@
       "MoveTime": 1.0,
       "Focus": 193.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -330,6 +336,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -366,6 +373,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -421,6 +429,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -472,6 +481,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -515,6 +525,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -558,6 +569,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -607,6 +619,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -643,6 +656,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -679,6 +693,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -715,6 +730,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -751,6 +767,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -787,6 +804,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -823,6 +841,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -859,6 +878,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -895,6 +915,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -931,6 +952,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -967,6 +989,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -1003,6 +1026,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -1046,6 +1070,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -1113,6 +1138,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",

@@ -87,7 +87,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Progress|Stat")
 	int32 AddStat(FName StatId, int32 Delta);
-
+	
 	// ---- 이벤트 완료 기록 ----
 
 	UFUNCTION(BlueprintPure, Category = "Progress|Event")
@@ -159,6 +159,7 @@ public:
 	
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	void SetSpawnerSeed(int32 NewSeed) { SpawnerSeed = NewSeed; }
+	
 
 protected:
 	
@@ -195,6 +196,9 @@ protected:
 	UPROPERTY()
 	int32 SpawnerSeed;
 
+	UPROPERTY()
+	FDiceRollRow QueuedDiceRoll;
+	
 	/** 스탯 이름을 Stats 배열 인덱스로 바꾼다. 없는 이름이면 경고를 남기고 false */
 	static bool TryGetStatIndex(FName StatId, int32& OutIndex);
 };

@@ -27,6 +27,8 @@
  * 조건 종류. 이벤트 전제조건, 대화 자동분기, 선택지 노출 조건에 공통으로 쓴다.
  * 각 항목 옆 주석은 FGameCondition의 Key / Value를 어떻게 채우는지를 뜻한다.
  */
+
+
 UENUM(BlueprintType)
 enum class EGameConditionType : uint8
 {
@@ -307,6 +309,29 @@ enum class EGameCameraType : uint8
 	Cinematic
 };
 
+USTRUCT(BlueprintType)
+struct FDiceRollRow
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "DiceRoll")
+	int32 DiceCount;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "DiceRoll")
+	int32 DiceType;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "DiceRoll")
+	int32 Success;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "DiceRoll")
+	int32 BitHit;
+	
+	bool IsEmpty() const
+	{
+		return (DiceCount == 0 && DiceType == 0);
+	}
+};
+
+
 /**
  * 데이터로 표현하는 단일 조건.
  * 여러 개를 배열로 두면 전부 만족해야 통과(AND)로 동작한다.
@@ -510,6 +535,9 @@ struct FDialogueNodeRow : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue | SoundLoc")
 	FSoundLocation SoundLocation;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue | DiceRoll")
+	FDiceRollRow DiceRoll;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dialogue")
 	FName NextNodeId;
 
@@ -593,7 +621,7 @@ struct FNpcEventRow : public FTableRowBase
 };
 
 /**
- * HUD로 넘기는 선택지 표시용 뷰 데이터.
+ * HUD로 넘기는 선택지 표시용 뷰 데이터. 
  * bEnabled=false면 "매력 부족" 같은 이유로 못 고르는 선택지 → 회색 처리한다.
  */
 USTRUCT(BlueprintType)
@@ -607,3 +635,5 @@ struct FDialogueChoiceView
 	UPROPERTY(BlueprintReadOnly, Category = "Dialogue")
 	bool bEnabled = true;
 };
+
+

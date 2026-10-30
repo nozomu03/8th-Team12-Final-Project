@@ -35,6 +35,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -86,6 +87,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -129,6 +131,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -178,6 +181,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -221,6 +225,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -264,6 +269,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -307,6 +313,7 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": null,
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",

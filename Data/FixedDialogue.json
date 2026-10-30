@@ -14,6 +14,13 @@
         "NextNodeId": "StudyLibrary1"
       },
       {
+        "Text": "독서한다",
+        "Conditions": [],
+        "Actions": [],
+        "YesNo": false,
+        "NextNodeId": "NovelLibrary1"
+      },
+      {
         "Text": "그만둔다",
         "Conditions": [],
         "Actions": [],
@@ -42,6 +49,12 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",
@@ -78,6 +91,12 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",
@@ -121,6 +140,12 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",
@@ -177,6 +202,12 @@
       "MoveTime": 0.1,
       "Focus": 180.0
     },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -220,6 +251,12 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -255,6 +292,12 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",
@@ -299,6 +342,12 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -341,6 +390,12 @@
         "Key": "Study",
         "Key2": "None",
         "Value": 0
+      },
+      {
+        "Type": "Teleport",
+        "Key": "CheonStudyEnd",
+        "Key2": "None",
+        "Value": 0
       }
     ],
     "Choices": [],
@@ -365,6 +420,341 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "NovelLibrary1",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "FadeOut",
+        "Key": "Black",
+        "Key2": "None",
+        "Value": 3
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "NovelLibrary2",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "NovelLibrary2",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "Interact",
+        "Key": "Chair",
+        "Key2": "true",
+        "Value": 0
+      },
+      {
+        "Type": "Teleport",
+        "Key": "Player",
+        "Key2": "CheonStudy",
+        "Value": 0
+      },
+      {
+        "Type": "PlayAnim",
+        "Key": "Player",
+        "Key2": "SitMale",
+        "Value": 1
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "NovelLibrary3",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "Cinematic",
+      "Location": {
+        "X": -835.8,
+        "Y": 565.5,
+        "Z": 101.4
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": -9.700671,
+        "Yaw": -153.0
+      },
+      "MoveTime": 0.1,
+      "Focus": 180.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "NovelLibrary3",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "FadeIn",
+        "Key": "None",
+        "Key2": "None",
+        "Value": 1
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "NovelLibrary4",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 1.0,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "NovelLibrary4",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "서가에서 골라온 소설책을 읽었다.",
+    "OnEnterActions": [],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "NovelLibrary4_001",
+    "AutoAdvance": "None",
+    "AutoAdvanceValue": 0.0,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": false,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "NovelLibrary4_001",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "FadeOut",
+        "Key": "Black",
+        "Key2": "None",
+        "Value": 3
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "NovelLibrary5",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "NovelLibrary5",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "StopAnim",
+        "Key": "Player",
+        "Key2": "None",
+        "Value": 0
+      },
+      {
+        "Type": "FadeIn",
+        "Key": "None",
+        "Key2": "None",
+        "Value": 3
+      },
+      {
+        "Type": "Teleport",
+        "Key": "Player",
+        "Key2": "PlayerStart",
+        "Value": 0
+      },
+      {
+        "Type": "AddStat",
+        "Key": "Int",
+        "Key2": "None",
+        "Value": 3
+      },
+      {
+        "Type": "FinishActivity",
+        "Key": "Study",
+        "Key2": "None",
+        "Value": 0
+      },
+      {
+        "Type": "Teleport",
+        "Key": "CheonStudyEnd",
+        "Key2": "None",
+        "Value": 0
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "None",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": false,
+    "Camera": {
+      "CameraType": "Player",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",
@@ -408,6 +798,12 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",
@@ -458,6 +854,12 @@
       "MoveTime": 0.0,
       "Focus": 10000.0
     },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -494,6 +896,12 @@
       "MoveTime": 0.0,
       "Focus": 100000.0
     },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
+    },
     "SoundLocation": {
       "SoundChannel": "",
       "SoundName": "",
@@ -529,6 +937,12 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",
@@ -572,6 +986,12 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",
@@ -633,6 +1053,12 @@
       },
       "MoveTime": 0.0,
       "Focus": 100000.0
+    },
+    "DiceRoll": {
+      "DiceCount": 1,
+      "DiceType": 6,
+      "Success": 3,
+      "BitHit": 6
     },
     "SoundLocation": {
       "SoundChannel": "",

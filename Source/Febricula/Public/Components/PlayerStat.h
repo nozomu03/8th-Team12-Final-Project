@@ -9,8 +9,9 @@ UENUM(BlueprintType)
 enum class EPlayerStat : uint8
 {
 	Health,
-	Mental,
+	Stress,
 	Int,
+	Wis,
 	Luck,
 	Courage,
 	HandWork,
