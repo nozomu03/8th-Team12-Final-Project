@@ -36,6 +36,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "HUD|Prompt")
 	void HideInteractionPrompt();
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "HUD|Reset")
+	void BP_HUDResetRequested();
+	
+	
 	// ---- UMG에서 구현할 시각 표현 ----
 
 	/** 프롬프트 텍스트 표시. 위젯 BP에서 텍스트 블록에 꽂고 보이기 처리 */

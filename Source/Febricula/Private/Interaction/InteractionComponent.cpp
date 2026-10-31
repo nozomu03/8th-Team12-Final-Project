@@ -8,12 +8,16 @@
 #include "Dialogue/DialogueSubsystem.h"
 // FOverlapResult는 UE5.1부터 별도 헤더로 분리됐다. Engine/World.h에는 전방 선언만 있어서
 // 이걸 빼면 "정의되지 않은 형식 'FOverlapResult'" 컴파일 에러가 난다.
+#include "EnhancedInputComponent.h"
+#include "FebriculaCharacter.h"
 #include "Engine/OverlapResult.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
 #include "Interaction/Interactable.h"
 #include "TimerManager.h"
+#include "Kismet/GameplayStatics.h"
+#include "SaveGame/SaveGameSubsystem.h"
 #include "UI/PlayerHUDWidget.h"
 
 UInteractionComponent::UInteractionComponent()
@@ -54,9 +58,15 @@ void UInteractionComponent::BeginPlay()
 			}
 		}
 	}
-
-	TryBindInput();
-
+	
+	if (USaveGameSubsystem* SaveGameSubsystem = GetWorld()->GetGameInstance()->GetSubsystem<USaveGameSubsystem>())
+	{
+		if (SaveGameSubsystem->GetPendingHUDReset())
+		{
+			HUDWidget->BP_HUDResetRequested();
+		}
+	}
+	
 	World->GetTimerManager().SetTimer(
 		FocusTimerHandle, this, &UInteractionComponent::UpdateFocus,
 		FMath::Max(FocusUpdateInterval, 0.02f), /*bLoop=*/true);
@@ -77,42 +87,20 @@ void UInteractionComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 	Super::EndPlay(EndPlayReason);
 }
-
-void UInteractionComponent::TryBindInput()
-{
-	if (!bBindEKeyDirectly || bInputBound)
-	{
-		return;
-	}
-
-	APawn* OwnerPawn = Cast<APawn>(GetOwner());
-	if (!OwnerPawn)
-	{
-		return;
-	}
-
-	APlayerController* PC = Cast<APlayerController>(OwnerPawn->GetController());
-	if (!PC)
-	{
-		// 아직 빙의 전일 수 있으니 잠시 뒤 다시 시도한다.
-		if (UWorld* World = GetWorld())
-		{
-			FTimerHandle RetryHandle;
-			World->GetTimerManager().SetTimer(RetryHandle, this, &UInteractionComponent::TryBindInput, 0.2f, false);
-		}
-		return;
-	}
-
-	// EnableInput을 부르면 Pawn에 InputComponent가 보장된다.
-	OwnerPawn->EnableInput(PC);
-
-	if (OwnerPawn->InputComponent)
-	{
-		// Enhanced Input의 IMC/IA 애셋 없이도 바로 쓰도록 키를 직접 바인딩한다.
-		OwnerPawn->InputComponent->BindKey(EKeys::E, IE_Pressed, this, &UInteractionComponent::TryInteract);
-		bInputBound = true;
-	}
-}
+	// if (ACharacter* PC = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
+	// {
+	// 	if (AFebriculaCharacter* FPC = Cast<AFebriculaCharacter>(PC))
+	// 	{
+	// 		FPC->
+	// 	}
+	// }
+	//
+	// if (OwnerPawn->InputComponent)
+	// {
+	// 	// Enhanced Input의 IMC/IA 애셋 없이도 바로 쓰도록 키를 직접 바인딩한다.
+	// 	OwnerPawn->InputComponent->BindKey(EKeys::E, IE_Pressed, this, &UInteractionComponent::TryInteract);
+	// 	bInputBound = true;
+	// }
 
 void UInteractionComponent::UpdateFocus()
 {

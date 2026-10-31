@@ -195,8 +195,8 @@ void UCharacterAnimationComponent::TickComponent(float DeltaTime, enum ELevelTic
 
 	if (Mode != LastAnimMode || Anim != LastAnimInstance)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("[AnimCheck] 프레임 %llu: 모드 %d → %d, 인스턴스 %p → %p"),
-			GFrameCounter, LastAnimMode, Mode, LastAnimInstance, Anim);
+		// UE_LOG(LogTemp, Warning, TEXT("[AnimCheck] 프레임 %llu: 모드 %d → %d, 인스턴스 %p → %p"),
+		// 	GFrameCounter, LastAnimMode, Mode, LastAnimInstance, Anim);
 		LastAnimMode = Mode;
 		LastAnimInstance = Anim;
 	}

@@ -3,10 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputActionValue.h"
 #include "Cheat/FebriculaCheatManager.h"
 #include "GameFramework/PlayerController.h"
 #include "FebriculaPlayerController.generated.h"
 
+class UInputAction;
 class UInputMappingContext;
 class UUserWidget;
 
@@ -20,8 +22,20 @@ class AFebriculaPlayerController : public APlayerController
 	GENERATED_BODY()
 	AFebriculaPlayerController();
 	
-protected:
+public:
+	UFUNCTION(BlueprintCallable, Category = "Input | OpenedWidget")
+	void AddWidget(UUserWidget* Widget);
+	UFUNCTION(BlueprintCallable, Category = "Input | OpenedWidget")
+	int32 GetWidgetCount();
 
+	UFUNCTION(BlueprintCallable, Category = "Input | OpenedWidget")
+	bool RemoveWidget();
+
+protected:
+	
+	UPROPERTY(EditAnywhere, Category = "Input | Input Action")
+	UInputAction* UIAction;
+	
 	/** Input Mapping Contexts */
 	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
 	TArray<UInputMappingContext*> DefaultMappingContexts;
@@ -29,6 +43,8 @@ protected:
 	/** Input Mapping Contexts */
 	UPROPERTY(EditAnywhere, Category="Input|Input Mappings")
 	TArray<UInputMappingContext*> MobileExcludedMappingContexts;
+	UPROPERTY(EditAnywhere, Category="Input|Input Mappings")
+	TArray<UInputMappingContext*> UIMappingContexts;
 
 	/** Mobile controls widget to spawn */
 	UPROPERTY(EditAnywhere, Category="Input|Touch Controls")
@@ -42,6 +58,7 @@ protected:
 	UPROPERTY(EditAnywhere, Config, Category = "Input|Touch Controls")
 	bool bForceTouchControls = false;
 
+	void HandleRemove(const FInputActionValue& InputActionValue);
 	/** Gameplay initialization */
 	virtual void BeginPlay() override;
 
@@ -50,4 +67,9 @@ protected:
 
 	/** Returns true if the player should use UMG touch controls */
 	bool ShouldUseTouchControls() const;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Input | OpenedWidget")
+	TArray<UUserWidget*> OpenedWidgets;
+
+	
 };

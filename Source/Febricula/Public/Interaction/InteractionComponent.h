@@ -44,13 +44,12 @@ public:
 	FName GetFocusedActorTag() const;
 	UFUNCTION(BlueprintPure, Category = "Interaction")
 	UPlayerHUDWidget* GetHUDWidget() const { return HUDWidget; }
-
+	
 protected:
 	/** 주변 검사 + 프롬프트 갱신 */
 	void UpdateFocus();
 
 	/** 소유 Pawn의 InputComponent에 E 키를 직접 바인딩한다 */
-	void TryBindInput();
 
 	// ---- 설정 ----
 

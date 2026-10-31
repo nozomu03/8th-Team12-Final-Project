@@ -12,6 +12,10 @@
 #include "Dialogue/DialogueSubsystem.h"
 #include "NPC/MainNpc/MainNpcSpawner.h"
 #include "EngineUtils.h"
+#include "FebriculaCharacter.h"
+#include "FebriculaPlayerController.h"
+#include "Interaction/InteractionComponent.h"
+#include "UI/PlayerHUDWidget.h"
 
 // ---------------------------------------------------------------------------
 // 내부 헬퍼
@@ -193,12 +197,34 @@ bool USaveGameSubsystem::LoadFromSlot(int32 SlotIndex)
 		// 레벨 이동이 필요하다. 새 레벨의 AFebriculaGameMode::BeginPlay에서
 		// ApplyPendingLoadIfAny()를 호출해줘야 2)가 실제로 반영된다.
 		UGameplayStatics::OpenLevel(this, Save->LevelName);
+		bPendingHUDReset = true;
 	}
 	else
 	{
 		// 이미 같은 레벨이면 레벨 전환이 없으니 여기서 바로 마저 적용한다.
 		ApplyPendingLoadIfAny();
-
+		if (ACharacter* Character = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
+		{
+			if (AFebriculaCharacter* FebriculaCharacter = Cast<AFebriculaCharacter>(Character))
+			{
+				if (UInteractionComponent* Comp = FebriculaCharacter->GetComponentByClass<UInteractionComponent>())
+				{
+					UPlayerHUDWidget* HUD = Comp->GetHUDWidget();
+					if (HUD)
+					{
+						HUD->BP_HUDResetRequested();
+					}
+					if (AController* Controller = Character->GetController())
+					{
+						if (AFebriculaPlayerController* PlayerController = Cast<AFebriculaPlayerController>(Controller))
+						{
+							PlayerController->RemoveWidget();
+						}
+					}
+				}
+			}
+		}
+		
 		// [skydodo] 2026-10-13 버그 수정: OpenLevel 직후에도 불러 곧 사라질 이전 레벨의 스포너를 갱신했고, 그것도 첫 번째 하나만 갱신했다.
 		// 레벨을 옮기면 새 레벨 스포너가 BeginPlay에서 알아서 세우므로 같은 레벨일 때만 전부 다시 세운다.
 		for (TActorIterator<AMainNpcSpawner> It(GetWorld()); It; ++It)

@@ -140,8 +140,7 @@ protected:
 	TObjectPtr<UInteractionComponent> InteractComponent;
 
 protected:
-
-
+	void Interact();
 	/** Initialize input action bindings */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

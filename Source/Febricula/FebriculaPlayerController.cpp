@@ -2,16 +2,129 @@
 
 
 #include "FebriculaPlayerController.h"
+
+#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
 #include "InputMappingContext.h"
 #include "Blueprint/UserWidget.h"
 #include "Febricula.h"
+#include "Progress/GameProgressSubsystem.h"
 #include "Widgets/Input/SVirtualJoystick.h"
 
 AFebriculaPlayerController::AFebriculaPlayerController()
 {
 	CheatClass = UFebriculaCheatManager::StaticClass();
+}
+
+void AFebriculaPlayerController::AddWidget(UUserWidget* Widget)
+{
+    if (!Widget) return;
+
+    // 1. 위젯을 추가하기 전에 '이전 상태가 비어있었는지' 미리 체크
+    bool bWasEmpty = OpenedWidgets.IsEmpty();
+
+    // 2. 스택에 위젯 추가
+    OpenedWidgets.Add(Widget);
+	
+	Widget->AddToViewport();
+	Widget->SetVisibility(ESlateVisibility::Visible);
+
+    // 3. 0개 -> 1개가 되는 최초의 순간에만 IMC 교체 및 입력 모드 변경
+    if (bWasEmpty)
+    {
+        if (UEnhancedInputLocalPlayerSubsystem* InputSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+        {
+        	InputSubsystem->ClearAllMappings();
+        	
+            for (UInputMappingContext* UI : UIMappingContexts)
+            {
+                InputSubsystem->AddMappingContext(UI, 0);
+            }
+        }
+
+        // ★ 핵심: 입력 모드를 Game and UI로 바꾸고 마우스 커서 살리기
+        FInputModeGameAndUI InputMode;
+        InputMode.SetWidgetToFocus(Widget->TakeWidget());
+        InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+        SetInputMode(InputMode);
+        SetShowMouseCursor(true);
+    }
+}
+
+int32 AFebriculaPlayerController::GetWidgetCount()
+{
+	UE_LOG(LogTemp, Warning, TEXT("GetWidgetCount() %d"), OpenedWidgets.Num());
+	return OpenedWidgets.Num();
+}
+
+bool AFebriculaPlayerController::RemoveWidget()
+{
+    UUserWidget* LastWidget = OpenedWidgets.Pop();
+	UE_LOG(LogTemp, Warning, TEXT("Removing Widget %s"), *LastWidget->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("RemoveWidget() %d"), OpenedWidgets.Num());
+	GetWidgetCount();
+
+    if (LastWidget)
+    {
+    	UE_LOG(LogTemp, Warning, TEXT("지우기 전 IsInViewport: %s"), LastWidget->IsInViewport() ? TEXT("True") : TEXT("False"));
+
+		LastWidget->SetVisibility(ESlateVisibility::Hidden);
+
+    	UE_LOG(LogTemp, Warning, TEXT("지운 후 IsInViewport: %s"), LastWidget->IsInViewport() ? TEXT("True") : TEXT("False"));
+    	UE_LOG(LogTemp, Warning, TEXT("지운 후 IsVisible: %s"), LastWidget->IsVisible() ? TEXT("True") : TEXT("False"));
+    }
+
+    // 모든 위젯이 다 닫혀서 스택이 완전히 비워졌다면 게임플레이 상태로 복구
+    if (OpenedWidgets.IsEmpty())
+    {
+        if (UEnhancedInputLocalPlayerSubsystem* InputSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+        {
+        	InputSubsystem->ClearAllMappings();
+            // for (UInputMappingContext* Default : DefaultMappingContexts)
+            // {
+            //     InputSubsystem->AddMappingContext(Default, 0);
+            // }
+        	
+        	if (UGameProgressSubsystem* Progress = GetWorld()->GetGameInstance()->GetSubsystem<UGameProgressSubsystem>())
+        	{
+        		InputSubsystem->AddMappingContext(Progress->GetDynamicIMC(), 0);
+        	}
+
+        	if (!ShouldUseTouchControls())
+        	{
+        		for (UInputMappingContext* CurrentContext : MobileExcludedMappingContexts)
+        		{
+        			InputSubsystem->AddMappingContext(CurrentContext, 0);
+        		}
+        	}
+        }
+
+        // ★ 핵심: 입력 모드를 다시 Game Only로 복구하고 마우스 숨기기
+        FInputModeGameOnly InputMode;
+        SetInputMode(InputMode);
+        SetShowMouseCursor(false);
+    }
+    
+    return true;
+}
+
+void AFebriculaPlayerController::HandleRemove(const FInputActionValue& InputActionValue)
+{
+	UE_LOG(LogTemp, Warning, TEXT("HandleRemove() %d"), OpenedWidgets.Num());
+	
+	
+	if (OpenedWidgets.Num() > 0)
+	{
+		RemoveWidget();
+	}
+	else
+	{
+		if (UGameProgressSubsystem* Progress = GetWorld()->GetGameInstance()->GetSubsystem<UGameProgressSubsystem>())
+		{
+			AddWidget(Progress->GetPauseWidget());
+		}
+	}
 }
 
 void AFebriculaPlayerController::BeginPlay()
@@ -35,6 +148,20 @@ void AFebriculaPlayerController::BeginPlay()
 
 		}
 
+	}
+	
+	if (UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(InputComponent))
+	{
+		Input->BindAction(UIAction, ETriggerEvent::Started, this, &AFebriculaPlayerController::HandleRemove);
+	}
+	
+	if (UEnhancedInputLocalPlayerSubsystem* LocalPlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		if (UGameProgressSubsystem* Progress = GetWorld()->GetGameInstance()->GetSubsystem<UGameProgressSubsystem>())
+		{
+			LocalPlayerSubsystem->RemoveMappingContext(Progress->GetDynamicIMC());
+			LocalPlayerSubsystem->AddMappingContext(Progress->GetDynamicIMC(), 0);
+		}
 	}
 }
 

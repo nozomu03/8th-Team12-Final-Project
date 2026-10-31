@@ -127,6 +127,13 @@ void AFebriculaCharacter::FaceTowards(const AActor* TargetActor)
 }
 
 
+void AFebriculaCharacter::Interact()
+{
+	if (UInteractionComponent* InteractionComponent = GetComponentByClass<UInteractionComponent>())
+	{
+		InteractionComponent->TryInteract();
+	}
+}
 
 void AFebriculaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -153,6 +160,15 @@ void AFebriculaCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AFebriculaCharacter::Look);
 
 		//	EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this , &AFebriculaCharacter::Interact);
+
+		if (InteractAction)
+		{
+			EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &AFebriculaCharacter::Interact);
+		}
+		else
+		{
+			InputComponent->BindKey(EKeys::E, IE_Pressed, this, &AFebriculaCharacter::Interact);
+					}
 
 	}
 	else

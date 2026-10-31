@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+                                 // Fill out your copyright notice in the Description page of Project Settings.
 //
 // 저장/불러오기의 단일 진입점.
 //
@@ -32,6 +32,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SaveGame")
 	bool SaveToSlot(int32 SlotIndex);
 
+	UFUNCTION(BlueprintCallable, Category = "SaveGame")
+	bool GetPendingHUDReset() { return bPendingHUDReset; }
+	
 	/**
 	 * 슬롯을 불러온다.
 	 * 저장된 레벨이 지금과 다르면 레벨 이동을 트리거하고, 레벨이 뜬 뒤 ApplyPendingLoadIfAny()가
@@ -88,6 +91,8 @@ protected:
 	FVector PendingPlayerLocation = FVector::ZeroVector;
 	FRotator PendingPlayerRotation = FRotator::ZeroRotator;
 	TArray<FDialogueLogEntry> PendingDialogueLog;
+	
+	bool bPendingHUDReset = false;
 
 private:
 	bool IsValidSlot(int32 SlotIndex) const;

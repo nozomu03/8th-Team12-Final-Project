@@ -11,6 +11,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputAction.h"
 #include "Components/PlayerStat.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Dialogue/DialogueDataTypes.h"
@@ -18,9 +19,24 @@
 #include "SaveGame/FebriculaSaveGame.h"
 #include "GameProgressSubsystem.generated.h"
 
+class UInputMappingContext;
 class UTimeSubsystem;
 
 /** UGameProgressSubsystem의 상태를 세이브 파일에 담기 위한 스냅샷 */
+
+USTRUCT(BlueprintType)
+struct FInputMappingPair
+{
+	GENERATED_BODY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TObjectPtr<UInputAction> Action;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FKey Key;
+	
+	FInputMappingPair() : Action(nullptr), Key(EKeys::Invalid) {}
+	FInputMappingPair(UInputAction* NowAction, const FKey& NewKey) : Action(NowAction), Key(NewKey) {}
+};
 
 UCLASS(BlueprintType)
 class FEBRICULA_API UGameProgressSubsystem : public UGameInstanceSubsystem
@@ -139,6 +155,9 @@ public:
 		UE_LOG(LogTemp, Warning, TEXT("GameProgressSubsystem: 현재 SpawnerSeed: %d"), SpawnerSeed);
 		return SpawnerSeed;
 	}
+	
+	UFUNCTION(BlueprintCallable)
+	UInputMappingContext* GetDynamicIMC();
 
 	FRandomStream MakeRandomStream(const FMainNpcSpawnRow& NowRow, uint32 Salt) const;
 	UFUNCTION(BlueprintCallable, Category = "Progress|Spawner Seed")
@@ -156,16 +175,33 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Progress|MoveHistory")
 	const TArray<FName>& GetMoveHistory() const { return MoveHistory; };
 
+
+	void OnWorldUpdate(UWorld* World, FWorldInitializationValues WorldInitializationValues);
 	
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	void SetSpawnerSeed(int32 NewSeed) { SpawnerSeed = NewSeed; }
 	
+	UUserWidget* GetPauseWidget();
+	
+	UFUNCTION(BlueprintCallable)
+	bool ChangeMultiMappingWrapper(TArray<FInputMappingPair>& KeyMappings);
+	UFUNCTION(BlueprintCallable)
+	bool ChangeSingleMappingWrapper(FInputMappingPair& KeyMapping);
+	
+	bool ChangeMapping(TArray<FInputMappingPair>& KeyMappings);
+
 
 protected:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input | OpenedWidget")
+	TObjectPtr<UUserWidget> PauseWidgetObject;
 	
 	/** 하루치 이동 경로 */
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FName> MoveHistory;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UInputMappingContext> DynamicIMC;
+	
 
 protected:
 	/** 시간 조건 판정에 쓰는 UTimeSubsystem 접근자. 없으면 nullptr */
@@ -198,6 +234,8 @@ protected:
 
 	UPROPERTY()
 	FDiceRollRow QueuedDiceRoll;
+	
+	
 	
 	/** 스탯 이름을 Stats 배열 인덱스로 바꾼다. 없는 이름이면 경고를 남기고 false */
 	static bool TryGetStatIndex(FName StatId, int32& OutIndex);
