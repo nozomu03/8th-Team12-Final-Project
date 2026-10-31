@@ -17,11 +17,6 @@
 #include "NPC/MainNpc/NpcAffinitySubsystem.h"
 #include "Progress/ProgressSettings.h"
 
-UInputMappingContext* UGameProgressSubsystem::GetDynamicIMC()
-{
-	return DynamicIMC;
-}
-
 FRandomStream UGameProgressSubsystem::MakeRandomStream(const FMainNpcSpawnRow& NowRow, uint32 Salt) const
 {
 	// [skydodo] 2026-10-13 버그 수정: Salt를 섞지 않아 스폰 확률 판정(Salt 0)과 자리 섞기(Salt 1)가 같은 난수열이었다
@@ -57,73 +52,72 @@ void UGameProgressSubsystem::OnWorldUpdate(UWorld* World, FWorldInitializationVa
 }
 
 
-bool UGameProgressSubsystem::ChangeMultiMappingWrapper(TArray<FInputMappingPair>& KeyMappings)
-{
-	return ChangeMapping(KeyMappings);
-}
-
-
-bool UGameProgressSubsystem::ChangeSingleMappingWrapper(FInputMappingPair& KeyMapping)
-{
-	TArray<FInputMappingPair> KeyMappings;
-	KeyMappings.Add(KeyMapping);
-	return ChangeMapping(KeyMappings);
-}
-
-bool UGameProgressSubsystem::ChangeMapping(TArray<FInputMappingPair>& KeyMappings)
-{
-	if (UGameInstance* GI = GetGameInstance())
-	{
-		ULocalPlayer* Player = GI->GetLocalPlayerByIndex(0);
-		if (UEnhancedInputLocalPlayerSubsystem* LocalPlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(Player))
-		{
-			if (!DynamicIMC)
-			{
-				const UProgressSettings* S = GetDefault<UProgressSettings>();
-				if (!S || !S->DefaultInputMappingContext) return false;
-				DynamicIMC = DuplicateObject<UInputMappingContext>(S->DefaultInputMappingContext.LoadSynchronous(), this);
-			}
-			if (DynamicIMC)
-			{
-				UInputMappingContext* TempContext = DuplicateObject<UInputMappingContext>(DynamicIMC, this);
-				for (FInputMappingPair& KeyMapping : KeyMappings)
-				{
-					if (KeyMapping.Action == nullptr || KeyMapping.Key == EKeys::Invalid) return false;
-					TempContext->MapKey(KeyMapping.Action, KeyMapping.Key);
-				}
-				
-				LocalPlayerSubsystem->RemoveMappingContext(DynamicIMC);
-				DynamicIMC = TempContext;
-				LocalPlayerSubsystem->AddMappingContext(DynamicIMC, 0);
-				return true;
-			}
-		}
-	}
-	return false;
-}
+// bool UGameProgressSubsystem::ChangeMultiMappingWrapper(TArray<FInputMappingPair>& KeyMappings)
+// {
+// 	return ChangeMapping(KeyMappings);
+// }
+//
+//
+// bool UGameProgressSubsystem::ChangeSingleMappingWrapper(FInputMappingPair& KeyMapping)
+// {
+// 	TArray<FInputMappingPair> KeyMappings;
+// 	KeyMappings.Add(KeyMapping);
+// 	return ChangeMapping(KeyMappings);
+// }
+//
+// bool UGameProgressSubsystem::ChangeMapping(TArray<FInputMappingPair>& KeyMappings)
+// {
+// 	if (UGameInstance* GI = GetGameInstance())
+// 	{
+// 		ULocalPlayer* Player = GI->GetLocalPlayerByIndex(0);
+// 		if (UEnhancedInputLocalPlayerSubsystem* LocalPlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(Player))
+// 		{
+// 			if (!DynamicIMC)
+// 			{
+// 				const UProgressSettings* S = GetDefault<UProgressSettings>();
+// 				if (!S || !S->DefaultInputMappingContext) return false;
+// 				DynamicIMC = DuplicateObject<UInputMappingContext>(S->DefaultInputMappingContext.LoadSynchronous(), this);
+// 			}
+// 			if (DynamicIMC)
+// 			{
+// 				UInputMappingContext* TempContext = DuplicateObject<UInputMappingContext>(DynamicIMC, this);
+// 				for (FInputMappingPair& KeyMapping : KeyMappings)
+// 				{
+// 					if (KeyMapping.Action == nullptr || KeyMapping.Key == EKeys::Invalid) return false;
+// 					TempContext->MapKey(KeyMapping.Action, KeyMapping.Key);
+// 				}
+// 				
+// 				LocalPlayerSubsystem->RemoveMappingContext(DynamicIMC);
+// 				DynamicIMC = TempContext;
+// 				LocalPlayerSubsystem->AddMappingContext(DynamicIMC, 0);
+// 				return true;
+// 			}
+// 		}
+// 	}
+// 	return false;
+// }
 
 void UGameProgressSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 	SpawnerSeed = FMath::Rand();	
 	FWorldDelegates::OnPostWorldInitialization.AddUObject(this, &UGameProgressSubsystem::OnWorldUpdate);
-	
-	const UProgressSettings* S = GetDefault<UProgressSettings>();
-	
-	UInputMappingContext* Temp = nullptr;
-	if (!S->DefaultInputMappingContext.IsNull())
-	{
-		 Temp = S->DefaultInputMappingContext.LoadSynchronous();
-	}
-	
-	DynamicIMC = DuplicateObject<UInputMappingContext>(Temp, this);
-
-	//PauseWidgetObject->SetVisibility(ESlateVisibility::Collapsed);
 }
 
 UUserWidget* UGameProgressSubsystem::GetPauseWidget()
 {
 	return PauseWidgetObject; 
+}
+
+UInputMappingContext* UGameProgressSubsystem::GetInputMappingContext()
+{
+	const UProgressSettings* S = GetDefault<UProgressSettings>();
+	
+	if (!S->DefaultInputMappingContext.IsNull())
+	{
+		return S->DefaultInputMappingContext.LoadSynchronous();
+	}
+	return nullptr;
 }
 
 const UTimeSubsystem* UGameProgressSubsystem::GetTime() const

@@ -88,7 +88,7 @@ bool AFebriculaPlayerController::RemoveWidget()
         	
         	if (UGameProgressSubsystem* Progress = GetWorld()->GetGameInstance()->GetSubsystem<UGameProgressSubsystem>())
         	{
-        		InputSubsystem->AddMappingContext(Progress->GetDynamicIMC(), 0);
+        		InputSubsystem->AddMappingContext(Progress->GetInputMappingContext(), 0);
         	}
 
         	if (!ShouldUseTouchControls())
@@ -159,8 +159,8 @@ void AFebriculaPlayerController::BeginPlay()
 	{
 		if (UGameProgressSubsystem* Progress = GetWorld()->GetGameInstance()->GetSubsystem<UGameProgressSubsystem>())
 		{
-			LocalPlayerSubsystem->RemoveMappingContext(Progress->GetDynamicIMC());
-			LocalPlayerSubsystem->AddMappingContext(Progress->GetDynamicIMC(), 0);
+			LocalPlayerSubsystem->RemoveMappingContext(Progress->GetInputMappingContext());
+			LocalPlayerSubsystem->AddMappingContext(Progress->GetInputMappingContext(), 0);
 		}
 	}
 }

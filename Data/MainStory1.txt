@@ -107,7 +107,7 @@ AI의 끊임없는 발전.
 @wait 0.1
 @hide
 @ChangeLevel TeacherOffice
-@TimeAdvanceSchedule 4
+@TimeAdvanceSchedule 1
 @CompleteEvent MainStory2
 @end
 

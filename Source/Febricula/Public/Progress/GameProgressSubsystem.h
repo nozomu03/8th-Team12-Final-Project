@@ -156,8 +156,8 @@ public:
 		return SpawnerSeed;
 	}
 	
-	UFUNCTION(BlueprintCallable)
-	UInputMappingContext* GetDynamicIMC();
+	// UFUNCTION(BlueprintCallable)
+	// UInputMappingContext* GetDynamicIMC();
 
 	FRandomStream MakeRandomStream(const FMainNpcSpawnRow& NowRow, uint32 Salt) const;
 	UFUNCTION(BlueprintCallable, Category = "Progress|Spawner Seed")
@@ -184,11 +184,14 @@ public:
 	UUserWidget* GetPauseWidget();
 	
 	UFUNCTION(BlueprintCallable)
-	bool ChangeMultiMappingWrapper(TArray<FInputMappingPair>& KeyMappings);
-	UFUNCTION(BlueprintCallable)
-	bool ChangeSingleMappingWrapper(FInputMappingPair& KeyMapping);
+	UInputMappingContext* GetInputMappingContext();
 	
-	bool ChangeMapping(TArray<FInputMappingPair>& KeyMappings);
+	// UFUNCTION(BlueprintCallable)
+	// bool ChangeMultiMappingWrapper(TArray<FInputMappingPair>& KeyMappings);
+	// UFUNCTION(BlueprintCallable)
+	// bool ChangeSingleMappingWrapper(FInputMappingPair& KeyMapping);
+	//
+	// bool ChangeMapping(TArray<FInputMappingPair>& KeyMappings);
 
 
 protected:
@@ -198,10 +201,6 @@ protected:
 	/** 하루치 이동 경로 */
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FName> MoveHistory;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TObjectPtr<UInputMappingContext> DynamicIMC;
-	
 
 protected:
 	/** 시간 조건 판정에 쓰는 UTimeSubsystem 접근자. 없으면 nullptr */
