@@ -18,5 +18,8 @@ public:
 	TSoftClassPtr<UUserWidget> PauseWidgetClass;
 	
 	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly)
+	TSoftClassPtr<UUserWidget> PreDirectionWidgetClass;
+	
+	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly)
 	TSoftObjectPtr<UInputMappingContext> DefaultInputMappingContext;
 };

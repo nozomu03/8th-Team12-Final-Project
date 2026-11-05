@@ -1913,14 +1913,46 @@
         "Type": "FadeOut",
         "Key": "Black",
         "Key2": "None",
-        "Value": 1
+        "Value": 3
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_071",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
       },
-      {
-        "Type": "ChangeLevel",
-        "Key": "TeacherOffice",
-        "Key2": "None",
-        "Value": 0
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
       },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_071",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
       {
         "Type": "TimeAdvanceSchedule",
         "Key": "None",
@@ -1930,6 +1962,50 @@
       {
         "Type": "CompleteEvent",
         "Key": "MainStory2",
+        "Key2": "None",
+        "Value": 0
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_072",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.1,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_072",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "ChangeLevel",
+        "Key": "TeacherOffice",
         "Key2": "None",
         "Value": 0
       }
@@ -1975,7 +2051,7 @@
         "Type": "FadeIn",
         "Key": "None",
         "Key2": "None",
-        "Value": 1
+        "Value": 3
       }
     ],
     "Choices": [],
@@ -1983,7 +2059,7 @@
     "Branches": [],
     "NextNodeId": "D1_090",
     "AutoAdvance": "AfterDelay",
-    "AutoAdvanceValue": 0.1,
+    "AutoAdvanceValue": 0.3,
     "AutoAdvanceNpcId": "None",
     "bHideBoxWhileWaiting": true,
     "Camera": {
@@ -2387,7 +2463,45 @@
         "Key": "MainStory3",
         "Key2": "None",
         "Value": 0
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_1021",
+    "AutoAdvance": "WhenPlayerNearNpc",
+    "AutoAdvanceValue": 100.0,
+    "AutoAdvanceNpcId": "NPC_Suyun",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
       },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_1021",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
       {
         "Type": "TimeSetSchedule",
         "Key": "Schedule.MorningClass",
@@ -2398,10 +2512,54 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
+    "NextNodeId": "D1_1022",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.1,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_1022",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "FadeOut",
+        "Key": "Black",
+        "Key2": "None",
+        "Value": 3
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
     "NextNodeId": "D1_103",
-    "AutoAdvance": "WhenPlayerNearNpc",
-    "AutoAdvanceValue": 100.0,
-    "AutoAdvanceNpcId": "NPC_Suyun",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceNpcId": "None",
     "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "None",
@@ -2862,9 +3020,9 @@
   },
   {
     "Name": "D1_105",
-    "SpeakerName": "한서윤",
+    "SpeakerName": "",
     "SpeakerNpcId": "None",
-    "Text": "3학년 때 다른 소프트웨어고로 전학이라… 흔한 일은 아닌데.",
+    "Text": "",
     "OnEnterActions": [
       {
         "Type": "Teleport",
@@ -2885,12 +3043,6 @@
         "Value": 0
       },
       {
-        "Type": "TimeAdvanceSchedule",
-        "Key": "None",
-        "Key2": "None",
-        "Value": 2
-      },
-      {
         "Type": "FadeIn",
         "Key": ".3",
         "Key2": "None",
@@ -2900,9 +3052,9 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_001",
-    "AutoAdvance": "None",
-    "AutoAdvanceValue": 0.0,
+    "NextNodeId": "D1_1051",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
     "AutoAdvanceNpcId": "None",
     "bHideBoxWhileWaiting": false,
     "Camera": {
@@ -2929,7 +3081,44 @@
     }
   },
   {
-    "Name": "D1_105_001",
+    "Name": "D1_1051",
+    "SpeakerName": "한서윤",
+    "SpeakerNpcId": "None",
+    "Text": "3학년 때 다른 소프트웨어고로 전학이라… 흔한 일은 아닌데.",
+    "OnEnterActions": [],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_1051_001",
+    "AutoAdvance": "None",
+    "AutoAdvanceValue": 0.0,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": false,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_1051_001",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "사고라도 쳤어?",
@@ -2937,7 +3126,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_002",
+    "NextNodeId": "D1_1051_002",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -2966,7 +3155,7 @@
     }
   },
   {
-    "Name": "D1_105_002",
+    "Name": "D1_1051_002",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "일이 좀 있긴 했어.",
@@ -2974,7 +3163,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_003",
+    "NextNodeId": "D1_1051_003",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3003,7 +3192,7 @@
     }
   },
   {
-    "Name": "D1_105_003",
+    "Name": "D1_1051_003",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "선생님한테 들었어. 징계 받았다며?",
@@ -3011,7 +3200,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_004",
+    "NextNodeId": "D1_1051_004",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3040,7 +3229,7 @@
     }
   },
   {
-    "Name": "D1_105_004",
+    "Name": "D1_1051_004",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "...응. 알고 있었구나.",
@@ -3048,7 +3237,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_005",
+    "NextNodeId": "D1_1051_005",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3077,7 +3266,7 @@
     }
   },
   {
-    "Name": "D1_105_005",
+    "Name": "D1_1051_005",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "학생회장이니까. 어떤 학생이 왜 전학오는지 정도는 알고 있어야지.",
@@ -3085,7 +3274,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_006",
+    "NextNodeId": "D1_1051_006",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3114,7 +3303,7 @@
     }
   },
   {
-    "Name": "D1_105_006",
+    "Name": "D1_1051_006",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "아무리 그래도 정확히 무슨 일이 있었는지까진 모르지만.",
@@ -3122,7 +3311,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_007",
+    "NextNodeId": "D1_1051_007",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3151,7 +3340,7 @@
     }
   },
   {
-    "Name": "D1_105_007",
+    "Name": "D1_1051_007",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "싸웠어",
@@ -3159,7 +3348,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_008",
+    "NextNodeId": "D1_1051_008",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3188,7 +3377,7 @@
     }
   },
   {
-    "Name": "D1_105_008",
+    "Name": "D1_1051_008",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "누구랑? 같은 반 애랑?",
@@ -3196,7 +3385,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_009",
+    "NextNodeId": "D1_1051_009",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3225,7 +3414,7 @@
     }
   },
   {
-    "Name": "D1_105_009",
+    "Name": "D1_1051_009",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "응.",
@@ -3233,7 +3422,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_010",
+    "NextNodeId": "D1_1051_010",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3262,7 +3451,7 @@
     }
   },
   {
-    "Name": "D1_105_010",
+    "Name": "D1_1051_010",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "폭력이라… 쉽지 않네…",
@@ -3270,7 +3459,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_011",
+    "NextNodeId": "D1_1051_011",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3299,7 +3488,7 @@
     }
   },
   {
-    "Name": "D1_105_011",
+    "Name": "D1_1051_011",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "아니, 아니지. 미안해.",
@@ -3307,7 +3496,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_012",
+    "NextNodeId": "D1_1051_012",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3336,7 +3525,7 @@
     }
   },
   {
-    "Name": "D1_105_012",
+    "Name": "D1_1051_012",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "잘못한 건 잘못한 거고… 앞으로 안 그러면 되는 거지. 응.",
@@ -3344,7 +3533,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_105_013",
+    "NextNodeId": "D1_1051_013",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3373,7 +3562,7 @@
     }
   },
   {
-    "Name": "D1_105_013",
+    "Name": "D1_1051_013",
     "SpeakerName": "",
     "SpeakerNpcId": "None",
     "Text": "",
@@ -3392,7 +3581,7 @@
     "AutoAdvance": "AfterDelay",
     "AutoAdvanceValue": 0.3,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "None",
       "Location": {
@@ -3418,9 +3607,9 @@
   },
   {
     "Name": "D1_106",
-    "SpeakerName": "한서윤",
+    "SpeakerName": "",
     "SpeakerNpcId": "None",
-    "Text": "원래 학교에선 뭐했었어?",
+    "Text": "",
     "OnEnterActions": [
       {
         "Type": "Teleport",
@@ -3433,12 +3622,6 @@
         "Key": "NPC_Suyun",
         "Key2": "SuyunOutsideThird",
         "Value": 0
-      },
-      {
-        "Type": "TimeAdvanceSchedule",
-        "Key": "None",
-        "Key2": "None",
-        "Value": 2
       },
       {
         "Type": "NpcFacePlayer",
@@ -3456,11 +3639,11 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_106_001",
+    "NextNodeId": "D1_1061",
     "AutoAdvance": "AfterDelay",
     "AutoAdvanceValue": 0.3,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "Cinematic",
       "Location": {
@@ -3485,7 +3668,44 @@
     }
   },
   {
-    "Name": "D1_106_001",
+    "Name": "D1_1061",
+    "SpeakerName": "한서윤",
+    "SpeakerNpcId": "None",
+    "Text": "원래 학교에선 뭐했었어?",
+    "OnEnterActions": [],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_1061_001",
+    "AutoAdvance": "None",
+    "AutoAdvanceValue": 0.0,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": false,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_1061_001",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "별 거 없었어. 그냥 수업 시험 수업 시험 반복이었지 뭐.",
@@ -3493,7 +3713,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_106_002",
+    "NextNodeId": "D1_1061_002",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3522,7 +3742,7 @@
     }
   },
   {
-    "Name": "D1_106_002",
+    "Name": "D1_1061_002",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "지필평가를 되게 중요시했나봐?",
@@ -3530,7 +3750,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_106_003",
+    "NextNodeId": "D1_1061_003",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3559,7 +3779,7 @@
     }
   },
   {
-    "Name": "D1_106_003",
+    "Name": "D1_1061_003",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "그것도 없진 않았는데 모의 면접이라던가 팀플 같은걸 3학년에 몰아놨었거든. 2학년 때까진 기껏해야 학기 당 한두 번? 정도 했던 거 같은데.",
@@ -3567,7 +3787,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_106_004",
+    "NextNodeId": "D1_1061_004",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3596,7 +3816,7 @@
     }
   },
   {
-    "Name": "D1_106_004",
+    "Name": "D1_1061_004",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "하긴. 뭘 어떻게 가르치고 평가할지는 학교마다 다 다르니까.",
@@ -3604,7 +3824,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_106_005",
+    "NextNodeId": "D1_1061_005",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3633,7 +3853,7 @@
     }
   },
   {
-    "Name": "D1_106_005",
+    "Name": "D1_1061_005",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "여긴 많이 달라?",
@@ -3641,7 +3861,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_106_006",
+    "NextNodeId": "D1_1061_006",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3670,7 +3890,7 @@
     }
   },
   {
-    "Name": "D1_106_006",
+    "Name": "D1_1061_006",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "네가 다녔던 학교랑은 정반대인 셈이네. 우린 1, 2학년 때 팀플하고 3학년 때는 면허 시험 대비해서 모의고사를 계속 보니까. 과목 실습이랑. 너한테는 오히려 다행일지도 모르겠다.",
@@ -3678,7 +3898,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_106_007",
+    "NextNodeId": "D1_1061_007",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3707,7 +3927,7 @@
     }
   },
   {
-    "Name": "D1_106_007",
+    "Name": "D1_1061_007",
     "SpeakerName": "",
     "SpeakerNpcId": "None",
     "Text": "",
@@ -3726,7 +3946,7 @@
     "AutoAdvance": "AfterDelay",
     "AutoAdvanceValue": 0.3,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "None",
       "Location": {
@@ -3752,9 +3972,9 @@
   },
   {
     "Name": "D1_107",
-    "SpeakerName": "강천율",
-    "SpeakerNpcId": "PC_GangChunyul",
-    "Text": "그럼 당장 뭐부터 해야하는 거지?",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
     "OnEnterActions": [
       {
         "Type": "Teleport",
@@ -3773,28 +3993,16 @@
         "Key": "NPC_Suyun",
         "Key2": "None",
         "Value": 0
-      },
-      {
-        "Type": "TimeAdvanceSchedule",
-        "Key": "None",
-        "Key2": "None",
-        "Value": 2
-      },
-      {
-        "Type": "FadeIn",
-        "Key": "None",
-        "Key2": "None",
-        "Value": 3
       }
     ],
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_001",
+    "NextNodeId": "D1_1071",
     "AutoAdvance": "AfterDelay",
-    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceValue": 0.1,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "Cinematic",
       "Location": {
@@ -3819,7 +4027,88 @@
     }
   },
   {
-    "Name": "D1_107_001",
+    "Name": "D1_1071",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "FadeIn",
+        "Key": "None",
+        "Key2": "None",
+        "Value": 3
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_1072",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_1072",
+    "SpeakerName": "강천율",
+    "SpeakerNpcId": "PC_GangChunyul",
+    "Text": "그럼 당장 뭐부터 해야하는 거지?",
+    "OnEnterActions": [],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_1072_001",
+    "AutoAdvance": "None",
+    "AutoAdvanceValue": 0.0,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": false,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_1072_001",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "학사 일정 상으로는 곧 진단평가니까 그거 준비하면 돼.",
@@ -3827,7 +4116,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_002",
+    "NextNodeId": "D1_1072_002",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3856,7 +4145,7 @@
     }
   },
   {
-    "Name": "D1_107_002",
+    "Name": "D1_1072_002",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "진단평가라…",
@@ -3864,7 +4153,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_003",
+    "NextNodeId": "D1_1072_003",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3893,7 +4182,7 @@
     }
   },
   {
-    "Name": "D1_107_003",
+    "Name": "D1_1072_003",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "왜? 자신 없어?",
@@ -3901,7 +4190,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_004",
+    "NextNodeId": "D1_1072_004",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3930,7 +4219,7 @@
     }
   },
   {
-    "Name": "D1_107_004",
+    "Name": "D1_1072_004",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "시험만 쳤다 하면 긴장이 되서 영…",
@@ -3938,7 +4227,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_005",
+    "NextNodeId": "D1_1072_005",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -3967,7 +4256,7 @@
     }
   },
   {
-    "Name": "D1_107_005",
+    "Name": "D1_1072_005",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "괜찮아. 낙제가 있다거나 성적이 낮다고 불이익을 받거나 하진 않으니까.",
@@ -3975,7 +4264,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_006",
+    "NextNodeId": "D1_1072_006",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4004,7 +4293,7 @@
     }
   },
   {
-    "Name": "D1_107_006",
+    "Name": "D1_1072_006",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "그냥 내가 잘하는 건 뭔지 못하는 건 뭔지 알기 위해서 치르는 시험이니까 그렇게 걱정할 필요는 없어.",
@@ -4012,7 +4301,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_007",
+    "NextNodeId": "D1_1072_007",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4041,7 +4330,7 @@
     }
   },
   {
-    "Name": "D1_107_007",
+    "Name": "D1_1072_007",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "진단평가 다음엔 뭐 하지?",
@@ -4049,7 +4338,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_008",
+    "NextNodeId": "D1_1072_008",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4078,7 +4367,7 @@
     }
   },
   {
-    "Name": "D1_107_008",
+    "Name": "D1_1072_008",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "그 다음엔… 별 거 없어. 중간고사 때까지는.",
@@ -4086,7 +4375,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_009",
+    "NextNodeId": "D1_1072_009",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4115,7 +4404,7 @@
     }
   },
   {
-    "Name": "D1_107_009",
+    "Name": "D1_1072_009",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "면허 시험 대비 특강이라던가 모의고사라던가 그런건 다 2학기는 되야 시작할 거고.",
@@ -4123,7 +4412,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_010",
+    "NextNodeId": "D1_1072_010",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4152,7 +4441,7 @@
     }
   },
   {
-    "Name": "D1_107_010",
+    "Name": "D1_1072_010",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "과제는? 과제는 어때?",
@@ -4160,7 +4449,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_011",
+    "NextNodeId": "D1_1072_011",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4189,7 +4478,7 @@
     }
   },
   {
-    "Name": "D1_107_011",
+    "Name": "D1_1072_011",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "학교 과제는 어디까지나 그날 배운거 실습해보는 수준이니까 크게 어렵거나 시간이 오래 걸리진 않을 거야.",
@@ -4197,7 +4486,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_012",
+    "NextNodeId": "D1_1072_012",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4226,7 +4515,7 @@
     }
   },
   {
-    "Name": "D1_107_012",
+    "Name": "D1_1072_012",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "일반 과목은 과제물이 없기도 하고.",
@@ -4234,7 +4523,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_107_013",
+    "NextNodeId": "D1_1072_013",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4263,7 +4552,7 @@
     }
   },
   {
-    "Name": "D1_107_013",
+    "Name": "D1_1072_013",
     "SpeakerName": "",
     "SpeakerNpcId": "None",
     "Text": "",
@@ -4273,7 +4562,45 @@
         "Key": "Black",
         "Key2": "None",
         "Value": 3
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_1073",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
       },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_1073",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
       {
         "Type": "ChangeLevel",
         "Key": "Gym",
@@ -4286,9 +4613,9 @@
     "Branches": [],
     "NextNodeId": "None",
     "AutoAdvance": "AfterDelay",
-    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceValue": 0.1,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "None",
       "Location": {
@@ -4314,10 +4641,16 @@
   },
   {
     "Name": "D1_108",
-    "SpeakerName": "한서윤",
+    "SpeakerName": "",
     "SpeakerNpcId": "None",
-    "Text": "여기가 체육관.",
+    "Text": "",
     "OnEnterActions": [
+      {
+        "Type": "FadeOut",
+        "Key": "Black",
+        "Key2": ".1",
+        "Value": 0
+      },
       {
         "Type": "SpawnActor",
         "Key": "NPC_Suyun",
@@ -4346,11 +4679,11 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_108_001",
+    "NextNodeId": "D1_1081",
     "AutoAdvance": "AfterDelay",
     "AutoAdvanceValue": 0.3,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "Cinematic",
       "Location": {
@@ -4375,7 +4708,44 @@
     }
   },
   {
-    "Name": "D1_108_001",
+    "Name": "D1_1081",
+    "SpeakerName": "한서윤",
+    "SpeakerNpcId": "None",
+    "Text": "여기가 체육관.",
+    "OnEnterActions": [],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "D1_1081_001",
+    "AutoAdvance": "None",
+    "AutoAdvanceValue": 0.0,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": false,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "D1_1081_001",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "여기가? 그럼 저기 앞에 있는 건?",
@@ -4383,7 +4753,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_108_002",
+    "NextNodeId": "D1_1081_002",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4412,7 +4782,7 @@
     }
   },
   {
-    "Name": "D1_108_002",
+    "Name": "D1_1081_002",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "저긴 강당. 학교 행사할 때 쓰는 곳이라 평소에는 잠겨 있어.",
@@ -4420,7 +4790,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_108_003",
+    "NextNodeId": "D1_1081_003",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4449,7 +4819,7 @@
     }
   },
   {
-    "Name": "D1_108_003",
+    "Name": "D1_1081_003",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "분리되어 있구나.",
@@ -4457,7 +4827,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_108_004",
+    "NextNodeId": "D1_1081_004",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4486,7 +4856,7 @@
     }
   },
   {
-    "Name": "D1_108_004",
+    "Name": "D1_1081_004",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "응. 원래는 저 자리에 별관이 있었는데 오래되서 위험하다고 헐어버리고 저렇게 강당을 세웠다 그러더라고.",
@@ -4494,7 +4864,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_108_005",
+    "NextNodeId": "D1_1081_005",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4523,7 +4893,7 @@
     }
   },
   {
-    "Name": "D1_108_005",
+    "Name": "D1_1081_005",
     "SpeakerName": "한서윤",
     "SpeakerNpcId": "None",
     "Text": "안에는…",
@@ -4531,7 +4901,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D1_108_006",
+    "NextNodeId": "D1_1081_006",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -4560,7 +4930,7 @@
     }
   },
   {
-    "Name": "D1_108_006",
+    "Name": "D1_1081_006",
     "SpeakerName": "",
     "SpeakerNpcId": "None",
     "Text": "",
@@ -7327,9 +7697,9 @@
     "Branches": [],
     "NextNodeId": "None",
     "AutoAdvance": "AfterDelay",
-    "AutoAdvanceValue": 0.3,
+    "AutoAdvanceValue": 0.1,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "None",
       "Location": {
@@ -8151,7 +8521,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_06_020",
+    "NextNodeId": "D2_06_01",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -8180,7 +8550,7 @@
     }
   },
   {
-    "Name": "D2_06_020",
+    "Name": "D2_06_01",
     "SpeakerName": "",
     "SpeakerNpcId": "None",
     "Text": "",
@@ -8205,7 +8575,7 @@
     "AutoAdvance": "AfterDelay",
     "AutoAdvanceValue": 0.4,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "None",
       "Location": {

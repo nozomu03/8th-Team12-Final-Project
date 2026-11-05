@@ -160,6 +160,9 @@ public:
 	// UInputMappingContext* GetDynamicIMC();
 
 	FRandomStream MakeRandomStream(const FMainNpcSpawnRow& NowRow, uint32 Salt) const;
+	
+	UFUNCTION(BlueprintPure)
+	int32 GetPropSeed(FVector PropLoc, int32 Salt = 0) const;
 	UFUNCTION(BlueprintCallable, Category = "Progress|Spawner Seed")
 	bool CheckNpcCanSpawn(const FMainNpcSpawnRow& NowRow) const;
 	

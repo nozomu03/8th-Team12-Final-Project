@@ -113,7 +113,7 @@ void AFebriculaGameMode::BeginPlay()
 	NPCCharacterMap = GetDefault<UNPCSetting>()->NPCCharacterMap;
 
 	//GetWorldTimerManager().SetTimer(AutoEventTimer, this, &AFebriculaGameMode::PlayEvent, 3.0f, false);
-	const bool bSpecialEvent = PlayEvent();
+	//const bool bSpecialEvent = PlayEvent();
 
 	// if (!bSpecialEvent)
 	// {

@@ -86,11 +86,18 @@
 천율: 그래, 고마워 서아야.
 @FadeOut Black 3
 @wait .6
+
+@label Suah_006
 @cam reset
 @Teleport Player PlayerStart
 @ConsumeAP 1
 @FinishActivity NPC_Suah 1
+@wait .1
+
+@label Suah_007
 @FadeIn 3
+@wait .3
+@hide
 @end
 
 

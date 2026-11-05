@@ -8,6 +8,7 @@
 #include "GameFramework/PlayerController.h"
 #include "FebriculaPlayerController.generated.h"
 
+class AFebriculaCameraManager;
 class UInputAction;
 class UInputMappingContext;
 class UUserWidget;
@@ -32,6 +33,8 @@ public:
 	bool RemoveWidget();
 
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Input | Default Widget")
+	TObjectPtr<UUserWidget> DefaultWidget;
 	
 	UPROPERTY(EditAnywhere, Category = "Input | Input Action")
 	UInputAction* UIAction;

@@ -33,6 +33,17 @@ FRandomStream UGameProgressSubsystem::MakeRandomStream(const FMainNpcSpawnRow& N
 	return FRandomStream(static_cast<int32>(Hash));
 }
 
+int32 UGameProgressSubsystem::GetPropSeed(FVector PropLoc, int32 Salt) const
+{
+	uint32 Hash = HashCombine(GetTypeHash(SpawnerSeed), GetTypeHash(Salt));
+	Hash = HashCombine(Hash, GetTypeHash(GetCurrentDay()));
+	Hash = HashCombine(Hash, GetTypeHash(PropLoc));
+	//Hash = HashCombine(Hash, FCrc::StrCrc32(*PropId.ToString()));
+	if (const UTimeSubsystem* Time = GetGameInstance()->GetSubsystem<UTimeSubsystem>())
+		Hash = HashCombine(Hash, FCrc::StrCrc32(*Time->GetNowScheduleName().ToString()));
+	return static_cast<int32>(Hash);
+}
+
 bool UGameProgressSubsystem::CheckNpcCanSpawn(const FMainNpcSpawnRow& NowRow) const
 {
 	if (NowRow.SpawnRate >= 100) return true;

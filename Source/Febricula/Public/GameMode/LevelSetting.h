@@ -16,6 +16,8 @@ class FEBRICULA_API ALevelSetting : public AWorldSettings
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Level Setting | Event")
+	bool bNeedPreDirection = true;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Level Setting | Event")
 	TObjectPtr<UDataTable> AutoEventRow;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Level Setting | Event")
 	TObjectPtr<UDataTable> AutoDialogueRow;
@@ -26,6 +28,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Level Setting | FixedCamera")
 	bool bUseFixedCamera;
 	
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Level Setting | UI")
+	bool bKeepCursor;
 	
 };

@@ -28,6 +28,9 @@ public:
 	
 	TSoftClassPtr<ABaseNpcCharacter> GetNpcViaName(FName NowName);
 	
+	UFUNCTION(BlueprintCallable)
+	bool PlayEvent();
+
 	// UFUNCTION(BlueprintCallable)
 	// [[nodiscard]] int32 Year() const
 	// {
@@ -42,7 +45,6 @@ public:
 
 	
 protected:
-	bool PlayEvent();
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UDataTable> AutoEventTable;

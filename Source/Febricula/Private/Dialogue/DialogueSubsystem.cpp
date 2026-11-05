@@ -10,9 +10,11 @@
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "FebriculaCharacter.h"
+#include "FebriculaPlayerController.h"
 #include "Activity/ActivitySetting.h"
 #include "Activity/ActivitySubsystem.h"
 #include "Animation/CharacterAnimationComponent.h"
+#include "Blueprint/UserWidget.h"
 #include "Cache/ActorCacheSubsystem.h"
 #include "Components/CapsuleComponent.h"
 #include "NPC/SubNpc/NpcCrowdSpawner.h"
@@ -34,6 +36,7 @@
 #include "WorldPartition/HLOD/HLODActor.h"
 #include "Dialogue/DialogueLogSubsystem.h"
 #include "GameMode/LevelSetting.h"
+#include "Progress/ProgressSettings.h"
 
 TStatId UDialogueSubsystem::GetStatId() const
 {
@@ -61,12 +64,24 @@ void UDialogueSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 	{
 		ActivitySubsystem->BindDialogue();
 	}
+	
+	if (AWorldSettings* WS = GetWorld()->GetWorldSettings() )
+	{
+		if (ALevelSetting* LS = Cast<ALevelSetting>(WS))
+		{
+			if (!LS->bNeedPreDirection)
+			{
+				bPreDirectionEnd = true;
+			}
+		}
+	}
 }
 
 void UDialogueSubsystem::Deinitialize()
 {
 	Super::Deinitialize();
 	FinishDialogue();
+	OnDialogueBoxHidden.Broadcast();
 	UE_LOG(LogTemp, Warning, TEXT("Dialogue Subsystem: Deinitialize"));
 }
 
@@ -182,6 +197,11 @@ bool UDialogueSubsystem::IsAutoAdvanceSatisfied(float DeltaTime)
 	}
 }
 
+int32 UDialogueSubsystem::GetPendingChoiceNum() const
+{
+	return PendingChoices.Num();
+}
+
 void UDialogueSubsystem::SetDataTables(UDataTable* InEventTable, UDataTable* InDialogueTable)
 {
 	if (InEventTable)
@@ -200,6 +220,40 @@ void UDialogueSubsystem::ResetDataTables()
 	{
 		SetDataTables(AES->AutoEventRow, AES->AutoDialogueRow);
 	}
+}
+
+void UDialogueSubsystem::ApplyPreDirection(APlayerController* PC, EPreDirection PreDirection)
+{
+	const UProgressSettings* S = GetDefault<UProgressSettings>();
+	BlockPlayerInput(true);
+	if (!IsValid(PreDirectionWidget))
+	{
+		if (!S->PreDirectionWidgetClass.IsNull())
+		{
+			PreDirectionWidget = CreateWidget<UUserWidget>(PC, S->PreDirectionWidgetClass.LoadSynchronous());
+			PreDirectionWidget->AddToViewport();
+			OnPreDirection.Broadcast(FPreDirectionBlock(PreDirection));
+		}
+	}
+	else
+	{
+		PreDirectionWidget->SetVisibility(ESlateVisibility::Visible);
+		OnPreDirection.Broadcast(FPreDirectionBlock(PreDirection));
+	}
+}
+
+void UDialogueSubsystem::RemovePreDirection(APlayerController* PC)
+{
+	if (IsValid(PreDirectionWidget))
+	{
+		PreDirectionWidget->SetVisibility(ESlateVisibility::Hidden);
+	}
+	bPreDirectionEnd = true;
+	//BlockPlayerInput(false);
+	// if (AFebriculaGameMode* GM = GetWorld()->GetAuthGameMode<AFebriculaGameMode>())
+	// {
+	// 	GM->PlayEvent();
+	// }
 }
 
 // ---------------------------------------------------------------------------
@@ -762,7 +816,7 @@ void UDialogueSubsystem::EnterNode(FName NodeId)
 	AutoAdvanceValue = Row->AutoAdvanceValue;
 	AutoAdvanceNpcId = Row->AutoAdvanceNpcId;
 	AutoAdvanceElapsed = 0.f;
-
+	
 	// 이동 대기 노드: 대사를 띄우지 않고 창만 닫아둔 채 조건이 만족될 때까지 기다린다.
 	// 플레이어는 그동안 자유롭게 NPC를 따라간다.
 	if (Row->bHideBoxWhileWaiting && PendingAutoAdvance != EDialogueAutoAdvance::None) //&& PendingAutoAdvance != EDialogueAutoAdvance::AfterDelay)
@@ -908,6 +962,7 @@ void UDialogueSubsystem::ResolveNodeExit()
 	// 3) 단순 다음 노드
 	if (Row->NextNodeId.IsNone())
 	{
+		OnDialogueBoxHidden.Broadcast();
 		FinishDialogue();
 	}
 	else
@@ -1039,7 +1094,7 @@ void UDialogueSubsystem::ExecuteQueuedActions()
 {
 	if (QueuedLevelChange.Num() > 0)
 	{
-		ExecuteAction(QueuedLevelChange.Pop());
+		ExecuteAction(QueuedLevelChange[QueuedLevelChange.Num() - 1]);
 	}
 	QueuedLevelChange.Reset();
 }
@@ -1353,7 +1408,6 @@ void UDialogueSubsystem::ExecuteAction(const FGameAction& Action)
 			{
 				if (!Action.Key2.ToString().ToBool())
 				{
-					UGameplayStatics::OpenLevelBySoftObjectPtr(this, Level->Level);
 					if (Progress)
 					{
 						Progress->AddMoveHistory(FName(Action.Key));
@@ -1362,6 +1416,10 @@ void UDialogueSubsystem::ExecuteAction(const FGameAction& Action)
 					{
 						ActivitySubsystem->bFreeActivity = false;
 					}
+					OnDialogueBoxHidden.Broadcast();
+					OnPreDirection.Broadcast(FPreDirectionBlock(EPreDirection::DeinitialFadeOut, Level->Level));
+					//UGameplayStatics::OpenLevelBySoftObjectPtr(this, Level->Level);
+
 				}
 				else
 				{

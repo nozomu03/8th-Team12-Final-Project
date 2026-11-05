@@ -18,12 +18,12 @@
 #include "Subsystems/WorldSubsystem.h"
 #include "Dialogue/DialogueDataTypes.h"
 #include "Dialogue/DialogueLogSubsystem.h"
+#include "Direction/PreDirection.h"
 #include "DialogueSubsystem.generated.h"
 
 class ABaseNpcCharacter;
 class UGameProgressSubsystem;
 class UNpcAffinitySubsystem;
-
 
 /** 대사 한 줄이 출력될 때. Speaker가 비어 있으면 나레이션(사물 조사 등) */
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnDialogueLine, const FText&, Speaker, const FText&, Body);
@@ -49,6 +49,10 @@ public:
 	FTransform Transform;
 };
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPreDirection, FPreDirectionBlock, NowPreDirectionBLock);
+
+
 UCLASS()
 class FEBRICULA_API UDialogueSubsystem : public UTickableWorldSubsystem
 {
@@ -62,6 +66,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual TStatId GetStatId() const override;
 	//~ End FTickableGameObject
+	
+	UFUNCTION(BlueprintCallable)
+	bool GetPreDirectionEnd() { return bPreDirectionEnd; }
 
 	// ---- 데이터 테이블 주입 ----
 
@@ -76,6 +83,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Dialogue")
 	void ResetDataTables();
 
+
+	UFUNCTION(BlueprintCallable)
+	void ApplyPreDirection(APlayerController* PC, EPreDirection PreDirection = EPreDirection::None);
+	
+	UFUNCTION(BlueprintCallable)
+	void RemovePreDirection(APlayerController* PC);
 
 	// ---- 대화 시작 ----
 
@@ -191,6 +204,9 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Dialogue")
 	FOnDialogueBoxHidden OnDialogueBoxHidden;
 	
+	UPROPERTY(BlueprintAssignable, Category = "PreDirection")
+	FOnPreDirection OnPreDirection; 
+	
 	// UPROPERTY(BlueprintAssignable, Category = "Dialogue")
 	// FOnChoiceSelected OnChoiceSelected;
 	//
@@ -229,6 +245,12 @@ protected:
 
 	ACharacter* GetCharacterInCache(FName CharacterName) const;
 
+	UPROPERTY()
+	TObjectPtr<UUserWidget> PreDirectionWidget;
+	
+	UPROPERTY()
+	bool bPreDirectionEnd = false;
+	
 	/** 이번 대화에 참여 중인 NPC들. 끝날 때 한꺼번에 풀어주기 위해 들고 있는다 */
 	UPROPERTY()
 	TArray<TObjectPtr<ABaseNpcCharacter>> ActiveParticipants;
@@ -266,6 +288,11 @@ protected:
 	/** 지금 표시 중인 선택지의 원본 (SelectChoice에서 참조) */
 	TArray<FDialogueChoice> PendingChoices;
 
+public:
+	UFUNCTION(BlueprintCallable)
+	int32 GetPendingChoiceNum() const;
+
+protected:
 	/** 대사 빠른 넘기기(Ctrl 홀드 등) 상태 */
 	bool bIsFastForwarding = false;
 
