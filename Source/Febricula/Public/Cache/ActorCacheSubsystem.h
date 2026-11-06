@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameMode/TargetTypeRole.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "DisplayPoint.h"
 #include "ActorCacheSubsystem.generated.h"
 
 class UTargetTypeComponent;
@@ -25,6 +26,9 @@ public:
 	FTransform GetTargetTransform(FName TargetTag, ETargetTypeRole TargetTypeRole = ETargetTypeRole::WildCard);
 	UFUNCTION(BlueprintCallable)
 	FVector GetTargetLocation(FName TargetTag, ETargetTypeRole TargetTypeRole = ETargetTypeRole::WildCard);
+	
+	UFUNCTION(BlueprintCallable)
+	TArray<FDisplayPoint> GetTargetLocationByRole(ETargetTypeRole TargetTypeRole);
 	
 	UFUNCTION(BlueprintCallable)
 	bool AddActorToCache(ATargetPoint* Actor);

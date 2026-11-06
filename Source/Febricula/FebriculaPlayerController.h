@@ -40,6 +40,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Input | Input Action")
 	UInputAction* UIAction;
 	
+	UPROPERTY(EditAnywhere, Category = "Input | Input Action")
+	UInputAction* MapAction;
+	
 	/** Input Mapping Contexts */
 	UPROPERTY(EditAnywhere, Category ="Input|Input Mappings")
 	TArray<UInputMappingContext*> DefaultMappingContexts;
@@ -63,6 +66,7 @@ protected:
 	bool bForceTouchControls = false;
 
 	void HandleRemove(const FInputActionValue& InputActionValue);
+	void HandleMap(const FInputActionValue& InputActionValue);
 	/** Gameplay initialization */
 	virtual void BeginPlay() override;
 

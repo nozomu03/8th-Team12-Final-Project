@@ -60,6 +60,19 @@ void UGameProgressSubsystem::OnWorldUpdate(UWorld* World, FWorldInitializationVa
 	if (!S || !S->PauseWidgetClass) return;
 	if (PauseWidgetObject) return;
 	PauseWidgetObject = CreateWidget<UUserWidget>(World, S->PauseWidgetClass.LoadSynchronous());
+	
+	if (S->MapWidgetClass.IsNull())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("MapWidget: Widget Class Didn't Connect"));
+		return;	
+	}
+	if (MapWidgetObject)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("MapWidget: Widget Already Exists"));
+		return;	
+	} 
+	MapWidgetObject = CreateWidget<UUserWidget>(World, S->MapWidgetClass.LoadSynchronous());
+	UE_LOG(LogTemp, Warning, TEXT("Widget Created"));
 }
 
 
@@ -118,6 +131,11 @@ void UGameProgressSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 UUserWidget* UGameProgressSubsystem::GetPauseWidget()
 {
 	return PauseWidgetObject; 
+}
+
+UUserWidget* UGameProgressSubsystem::GetMapWidget()
+{
+	return MapWidgetObject;
 }
 
 UInputMappingContext* UGameProgressSubsystem::GetInputMappingContext()

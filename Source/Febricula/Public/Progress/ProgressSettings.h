@@ -18,6 +18,9 @@ public:
 	TSoftClassPtr<UUserWidget> PauseWidgetClass;
 	
 	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly)
+	TSoftClassPtr<UUserWidget> MapWidgetClass;
+	
+	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly)
 	TSoftClassPtr<UUserWidget> PreDirectionWidgetClass;
 	
 	UPROPERTY(EditAnywhere, Config, BlueprintReadOnly)

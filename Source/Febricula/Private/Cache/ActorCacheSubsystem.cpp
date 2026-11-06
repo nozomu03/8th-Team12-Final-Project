@@ -52,6 +52,39 @@ FVector UActorCacheSubsystem::GetTargetLocation(FName TargetTag, ETargetTypeRole
 	return FVector::Zero();
 }
 
+TArray<FDisplayPoint> UActorCacheSubsystem::GetTargetLocationByRole(ETargetTypeRole TargetTypeRole)
+{
+	TArray<FDisplayPoint> Locations;
+
+	for (const TPair<FName, TWeakObjectPtr<ATargetPoint>>& Pair : CachedTargetPoints)
+	{
+		ATargetPoint* Target = Pair.Value.Get();
+
+		if (!IsValid(Target))
+		{
+			continue;
+		}
+
+		UTargetTypeComponent* Component =
+			Target->GetComponentByClass<UTargetTypeComponent>();
+
+		if (!Component)
+		{
+			continue;
+		}
+
+		if (TargetTypeRole != ETargetTypeRole::WildCard &&
+			Component->TargetTypeRole != TargetTypeRole)
+		{
+			continue;
+		}
+
+		Locations.Add(FDisplayPoint(Pair.Key, Target->GetActorLocation()));
+	}
+
+	return Locations;
+}
+
 // [skydodo] 2026-10-13 버그 수정: 태그가 없을 때 경고 후 '존재하지 않는 액터' 경고까지 이어서 찍던 것 수정
 bool UActorCacheSubsystem::AddActorToCache(ATargetPoint* Actor)
 {

@@ -16,6 +16,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Light/SunControllerComponent.h"
 #include "Progress/GameProgressSubsystem.h"
+#include "UI/MapWidget.h"
 #include "UI/PlayerHUDWidget.h"
 #include "Widgets/Input/SVirtualJoystick.h"
 
@@ -30,11 +31,15 @@ void AFebriculaPlayerController::AddWidget(UUserWidget* Widget)
 
     // 1. 위젯을 추가하기 전에 '이전 상태가 비어있었는지' 미리 체크
     bool bWasEmpty = OpenedWidgets.IsEmpty();
-
+	Widget->SetOwningPlayer(this);
     // 2. 스택에 위젯 추가
     OpenedWidgets.Add(Widget);
 	
 	Widget->AddToViewport(10000);
+	if (UMapWidget* MapWidget = Cast<UMapWidget>(Widget))
+	{
+		MapWidget->RequestMapRefresh();
+	}
 	Widget->SetVisibility(ESlateVisibility::Visible);
 
     // 3. 0개 -> 1개가 되는 최초의 순간에만 IMC 교체 및 입력 모드 변경
@@ -182,6 +187,25 @@ void AFebriculaPlayerController::HandleRemove(const FInputActionValue& InputActi
 	}
 }
 
+void AFebriculaPlayerController::HandleMap(const FInputActionValue& InputActionValue)
+{
+	if (UGameProgressSubsystem* Progress = GetWorld()->GetGameInstance()->GetSubsystem<UGameProgressSubsystem>())
+	{
+		if (OpenedWidgets.IsEmpty())
+		{
+			AddWidget(Progress->GetMapWidget());
+		}
+		else
+		{
+			if (OpenedWidgets.Last() == Progress->GetMapWidget())
+			{
+				RemoveWidget();
+			}
+		}
+
+	}
+}
+
 void AFebriculaPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -208,7 +232,10 @@ void AFebriculaPlayerController::BeginPlay()
 	if (UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(InputComponent))
 	{
 		Input->BindAction(UIAction, ETriggerEvent::Started, this, &AFebriculaPlayerController::HandleRemove);
+		Input->BindAction(MapAction, ETriggerEvent::Started, this, &AFebriculaPlayerController::HandleMap);
 	}
+	
+	
 	
 	if (UEnhancedInputLocalPlayerSubsystem* LocalPlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{

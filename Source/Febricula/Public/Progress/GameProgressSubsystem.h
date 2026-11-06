@@ -185,6 +185,7 @@ public:
 	void SetSpawnerSeed(int32 NewSeed) { SpawnerSeed = NewSeed; }
 	
 	UUserWidget* GetPauseWidget();
+	UUserWidget* GetMapWidget();
 	
 	UFUNCTION(BlueprintCallable)
 	UInputMappingContext* GetInputMappingContext();
@@ -200,6 +201,9 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input | OpenedWidget")
 	TObjectPtr<UUserWidget> PauseWidgetObject;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input | OpenedWidget")
+	TObjectPtr<UUserWidget> MapWidgetObject;
 	
 	/** 하루치 이동 경로 */
 	UPROPERTY(BlueprintReadOnly)

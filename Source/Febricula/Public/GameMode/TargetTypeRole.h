@@ -11,5 +11,6 @@ enum class ETargetTypeRole : uint8
 	Spawn,
 	Camera,
 	MoveGoal,
-	Prop
+	Prop,
+	MapDisplay
 };
