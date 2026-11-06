@@ -138,6 +138,8 @@ void USunControllerComponent::ApplySchedule(bool bInstant)
 	// 2) 다음 프레임에 캡처 — 같은 프레임이면 이전 해 방향의 하늘이 찍힌다
 	RecaptureTimer = TM.SetTimerForNextTick(this, &USunControllerComponent::DoRecapture);
 
+	
+	
 	UE_LOG(LogTemp, Log, TEXT("[Sun] 시간대 %s — 하늘 강도 %.1f -> %.1f"), *Point, Sky->Intensity, Target);
 }
 

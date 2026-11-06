@@ -412,7 +412,6 @@ AI의 끊임없는 발전.
 @label D2_02
 @FadeOut Black .1
 사감: 이걸로 아침 조회는 끝. 다들 밥 먹으러 가.
-@TimeAdvanceSchedule
 조회 자체는 별 것 없었다.
 인원 점검, 체조, 간단한 운동, 일정 전달.
 모여 서 있던 학생들은 삼삼오오 무리를 지은 채 저마다 흩어져 갔다.
@@ -422,6 +421,7 @@ AI의 끊임없는 발전.
 @cam Loc 4951.8 -241.6 14.9 Rot 0 0 -118.3 .1 974
 @FadeIn 3
 @wait .3
+@hide
 
 @label D2_03
 도윤: 강천율... 이라고 했었지?
@@ -454,7 +454,7 @@ AI의 끊임없는 발전.
 @end
 
 @label D2_05
-@TimeAdvanceSchedule 1
+@TimeAdvanceSchedule
 @PlaySE Looping crowd_buzz
 @Teleport Player FoodCheon
 @SpawnActor NPC_Doyun WithFood
@@ -464,6 +464,7 @@ AI의 끊임없는 발전.
 @FadeIn 3
 @cam Loc 87.0 -133.0 93.0 Rot 0 5.0 135.7 .1 400
 @wait .3
+@hide
 
 @label D2_06
 도윤: 어제 보니까 서윤이랑 같이 다니고 있던 것 같은데 그 애가 내 이야기도 해줬어?
@@ -488,17 +489,15 @@ AI의 끊임없는 발전.
 도윤: 그럼 일어나자.
 
 @label D2_06_01
-@FadeOut Black 3
-@wait .4
+@FadeOut Black 5
+@wait 1
+@TimeSetSchedule Schedule.AfterSchool
+@wait .1 
 @hide 
 
 @label D2_06_02
 @ChangeLevel SchoolOutside
-@end
-
-@label D2_07
-@TimeAdvanceSchedule
-천율: (조례까진 자유시간이라고 했었지...)
+@wait .1
 @end
 
 @label D2_08
@@ -511,6 +510,9 @@ AI의 끊임없는 발전.
 @end
 
 @label D2_09 
+@cam Loc 2201.3 -5353.5 284.6 Rot 0 -13.4 33
+@wait .1
+
 천율: (버스 놓치면 한참 기다려야 해. 서두르자.)
 @PlaySE First phone_ring
 전화벨이 울린다.
@@ -518,11 +520,6 @@ AI의 끊임없는 발전.
 @cast 삼촌 = "삼촌" NPC_Uncle
 @label D2_11
 @StopSE First
-@FadeIn 3
-@hide
-@wait .3 
-
-@label D2_12
 천율: [여보세요.]
 삼촌: [뭐야, 바로 받았네.]
 삼촌: [몇 번은 해야 받을 줄 알았더니.]
@@ -674,7 +671,19 @@ AI의 끊임없는 발전.
 (건물 문과 상호작용 하면 아르바이트 장소 / 집으로 향할 수 있습니다.)
 @end 
 
+//기본
+@label Morning_Default_Skip1
+@PreDirection InitialFadeOut
+@TimeSetSchedule Schedule.AfterSchool
+@Teleport Player DefaultStartPoint
+@wait .1
+@hide
 
+@label Morning_Default_Skip2
+@PreDirection InitialFadeIn
+@wait .1
+@hide
+@end
 
 //수업
 @label Lesson_Default

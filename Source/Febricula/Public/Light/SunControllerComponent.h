@@ -36,6 +36,7 @@ struct FSunRotationBlock
  * ⚠ OnScheduleChanged 의 리스너는 이것 하나여야 한다. 스카이라이트 쪽에 따로 바인드하면
  *   델리게이트 순서에 따라 번쩍임이 다시 생긴다.
  */
+
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class FEBRICULA_API USunControllerComponent : public UActorComponent
 {

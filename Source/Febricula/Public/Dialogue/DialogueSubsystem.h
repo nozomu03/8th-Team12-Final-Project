@@ -52,6 +52,7 @@ public:
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPreDirection, FPreDirectionBlock, NowPreDirectionBLock);
 
+DECLARE_LOG_CATEGORY_EXTERN(LogPreDirection, Log, All)
 
 UCLASS()
 class FEBRICULA_API UDialogueSubsystem : public UTickableWorldSubsystem

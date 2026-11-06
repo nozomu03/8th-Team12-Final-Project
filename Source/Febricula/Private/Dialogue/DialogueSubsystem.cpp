@@ -38,6 +38,8 @@
 #include "GameMode/LevelSetting.h"
 #include "Progress/ProgressSettings.h"
 
+DEFINE_LOG_CATEGORY(LogPreDirection)
+
 TStatId UDialogueSubsystem::GetStatId() const
 {
 	RETURN_QUICK_DECLARE_CYCLE_STAT(UDialogueSubsystem, STATGROUP_Tickables);
@@ -226,12 +228,16 @@ void UDialogueSubsystem::ApplyPreDirection(APlayerController* PC, EPreDirection 
 {
 	const UProgressSettings* S = GetDefault<UProgressSettings>();
 	BlockPlayerInput(true);
+	bPreDirectionEnd = false;
+	
+	UE_LOG(LogPreDirection, Warning, TEXT("Now PreDirection: %d"), PreDirection);
+	
 	if (!IsValid(PreDirectionWidget))
 	{
 		if (!S->PreDirectionWidgetClass.IsNull())
 		{
 			PreDirectionWidget = CreateWidget<UUserWidget>(PC, S->PreDirectionWidgetClass.LoadSynchronous());
-			PreDirectionWidget->AddToViewport();
+			PreDirectionWidget->AddToViewport(9999);
 			OnPreDirection.Broadcast(FPreDirectionBlock(PreDirection));
 		}
 	}
@@ -240,6 +246,7 @@ void UDialogueSubsystem::ApplyPreDirection(APlayerController* PC, EPreDirection 
 		PreDirectionWidget->SetVisibility(ESlateVisibility::Visible);
 		OnPreDirection.Broadcast(FPreDirectionBlock(PreDirection));
 	}
+	UE_LOG(LogPreDirection, Warning, TEXT("Sun Contol: %d"), PreDirection);
 }
 
 void UDialogueSubsystem::RemovePreDirection(APlayerController* PC)
@@ -739,7 +746,7 @@ void UDialogueSubsystem::EnterNode(FName NodeId)
 	}
 
 	static const FString ContextString(TEXT("EnterNode"));
-	const FDialogueNodeRow* Row = DialogueTable->FindRow<FDialogueNodeRow>(NodeId, ContextString, /*bWarnIfMissing=*/false);
+	FDialogueNodeRow* Row = DialogueTable->FindRow<FDialogueNodeRow>(NodeId, ContextString, /*bWarnIfMissing=*/false);
 	if (!Row)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("UDialogueSubsystem: 대화 노드 '%s'를 대화 테이블에서 찾지 못했습니다."), *NodeId.ToString());
@@ -816,6 +823,12 @@ void UDialogueSubsystem::EnterNode(FName NodeId)
 	AutoAdvanceValue = Row->AutoAdvanceValue;
 	AutoAdvanceNpcId = Row->AutoAdvanceNpcId;
 	AutoAdvanceElapsed = 0.f;
+	
+	
+	if (Row->NextNodeId.IsNone() && Row->Text.IsEmpty())
+	{
+		Row->bHideBoxWhileWaiting = true;
+	}
 	
 	// 이동 대기 노드: 대사를 띄우지 않고 창만 닫아둔 채 조건이 만족될 때까지 기다린다.
 	// 플레이어는 그동안 자유롭게 NPC를 따라간다.
@@ -1143,32 +1156,32 @@ void UDialogueSubsystem::ExecuteAction(const FGameAction& Action)
 
 	case EGameActionType::TimeAdvanceDay:
 	case EGameActionType::TimeAdvanceSchedule:
-	{
-		const UWorld* World = GetWorld();
-		UGameInstance* GameInstance = World ? World->GetGameInstance() : nullptr;
-		UTimeSubsystem* Time = GameInstance ? GameInstance->GetSubsystem<UTimeSubsystem>() : nullptr;
-		if (!Time)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("시간 진행 액션: UTimeSubsystem을 찾지 못했습니다."));
-			break;
-		}
+			const UWorld* World = GetWorld();
+			UGameInstance* GameInstance = World ? World->GetGameInstance() : nullptr;
+			UTimeSubsystem* Time = GameInstance ? GameInstance->GetSubsystem<UTimeSubsystem>() : nullptr;
+			if (!Time)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("시간 진행 액션: UTimeSubsystem을 찾지 못했습니다."));
+				break;
+			}
 
-		// Value를 비워두면(0) 한 번만 진행한다. 실수로 0을 넣어도 아무 일도 안 일어나는 것보다
-		// 1회 진행이 의도에 가깝기 때문이다.
-		const int32 Steps = FMath::Clamp(Action.Value <= 0 ? 1 : Action.Value, 1, 100);
-		for (int32 i = 0; i < Steps; ++i)
-		{
-			if (Action.Type == EGameActionType::TimeAdvanceDay)
+			// Value를 비워두면(0) 한 번만 진행한다. 실수로 0을 넣어도 아무 일도 안 일어나는 것보다
+			// 1회 진행이 의도에 가깝기 때문이다.
+			const int32 Steps = FMath::Clamp(Action.Value <= 0 ? 1 : Action.Value, 1, 100);
+			for (int32 i = 0; i < Steps; ++i)
 			{
-				Time->SpendDay();
-			}
-			else
-			{
-				Time->SpendSchedule();
+				if (Action.Type == EGameActionType::TimeAdvanceDay)
+				{
+					Time->SpendDay();
+				}
+				else
+				{
+					Time->SpendSchedule();
+				}
 			}
 		}
-	}
-	break;
+		break;
 		
 	case EGameActionType::TimeSetSchedule:
 		if (UTimeSubsystem* Time = GetWorld()->GetGameInstance()->GetSubsystem<UTimeSubsystem>())
@@ -1294,54 +1307,54 @@ void UDialogueSubsystem::ExecuteAction(const FGameAction& Action)
 		// ---- 애니메이션 ----
 
 	case EGameActionType::PlayAnim:
-	{
-		UCharacterAnimationComponent* AnimationComponent = nullptr;
-		if (Action.Key.IsNone() || Action.Key == "Player")
 		{
-			if (AFebriculaCharacter* FC = Cast<AFebriculaCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0)))
+			UCharacterAnimationComponent* AnimationComponent = nullptr;
+			if (Action.Key.IsNone() || Action.Key == "Player")
 			{
-				AnimationComponent = FC->GetComponentByClass<UCharacterAnimationComponent>();
+				if (AFebriculaCharacter* FC = Cast<AFebriculaCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0)))
+				{
+					AnimationComponent = FC->GetComponentByClass<UCharacterAnimationComponent>();
+				}
 			}
-		}
-		else
-		{
-			if (ABaseNpcCharacter* Npc = FindNpcById(Action.Key))
+			else
 			{
+				if (ABaseNpcCharacter* Npc = FindNpcById(Action.Key))
+				{
 
-				AnimationComponent = Npc->GetComponentByClass<UCharacterAnimationComponent>();
+					AnimationComponent = Npc->GetComponentByClass<UCharacterAnimationComponent>();
+				}
 			}
+			if (AnimationComponent)
+			{
+				AnimationComponent->PlayAnim(Action.Key2, Action.Value != 0);
+				//AnimationComponent->PlayNpcAnim(Action.Key2, /*bLoop=*/Action.Value != 0);
+			}
+			break;
 		}
-		if (AnimationComponent)
-		{
-			AnimationComponent->PlayAnim(Action.Key2, Action.Value != 0);
-			//AnimationComponent->PlayNpcAnim(Action.Key2, /*bLoop=*/Action.Value != 0);
-		}
-		break;
-	}
 	case EGameActionType::StopAnim:
-	{
-		UCharacterAnimationComponent* AnimationComponent = nullptr;
-		if (Action.Key.IsNone() || Action.Key == "Player")
 		{
-			if (AFebriculaCharacter* FC = Cast<AFebriculaCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0)))
+			UCharacterAnimationComponent* AnimationComponent = nullptr;
+			if (Action.Key.IsNone() || Action.Key == "Player")
 			{
-				AnimationComponent = FC->GetComponentByClass<UCharacterAnimationComponent>();
+				if (AFebriculaCharacter* FC = Cast<AFebriculaCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0)))
+				{
+					AnimationComponent = FC->GetComponentByClass<UCharacterAnimationComponent>();
+				}
 			}
-		}
-		else
-		{
-			if (ABaseNpcCharacter* Npc = Cast<ABaseNpcCharacter>(GetCharacterInCache(Action.Key)))
+			else
 			{
-				AnimationComponent = Npc->GetComponentByClass<UCharacterAnimationComponent>();
+				if (ABaseNpcCharacter* Npc = Cast<ABaseNpcCharacter>(GetCharacterInCache(Action.Key)))
+				{
+					AnimationComponent = Npc->GetComponentByClass<UCharacterAnimationComponent>();
+				}
 			}
-		}
 
-		if (AnimationComponent)
-		{
-			AnimationComponent->StopAnim();
+			if (AnimationComponent)
+			{
+				AnimationComponent->StopAnim();
+			}
+			break;
 		}
-		break;
-	}
 	case EGameActionType::NpcFacePlayer:
 		if (ABaseNpcCharacter* Npc = Cast<ABaseNpcCharacter>(GetCharacterInCache(Action.Key)))
 		{
@@ -1418,6 +1431,7 @@ void UDialogueSubsystem::ExecuteAction(const FGameAction& Action)
 					}
 					OnDialogueBoxHidden.Broadcast();
 					OnPreDirection.Broadcast(FPreDirectionBlock(EPreDirection::DeinitialFadeOut, Level->Level));
+					UE_LOG(LogPreDirection, Warning, TEXT("DeinitalFadeOut: %s"), *Level->Level.ToSoftObjectPath().ToString());
 					//UGameplayStatics::OpenLevelBySoftObjectPtr(this, Level->Level);
 
 				}
@@ -1439,6 +1453,7 @@ void UDialogueSubsystem::ExecuteAction(const FGameAction& Action)
 	case EGameActionType::FadeOut:
 		if (APlayerController* PC = (UGameplayStatics::GetPlayerController(this, 0)))
 		{
+			bPreDirectionEnd = false;
 			if (Action.Value > 0)
 			{
 				if (Action.Key == "Black")
@@ -1466,12 +1481,24 @@ void UDialogueSubsystem::ExecuteAction(const FGameAction& Action)
 		break;
 
 	case EGameActionType::FadeIn:
+		bPreDirectionEnd = true;
 		if (APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0))
 		{
 			PC->PlayerCameraManager->StartCameraFade(1.f, .0f, 1.f, FColor::Black, false, false);
 		}
 		break;
 
+	case EGameActionType::PreDirection:
+	{
+		UEnum* Enum = StaticEnum<EPreDirection>();
+		int64 Value = Enum->GetValueByName(Action.Key);
+		if (Value == INDEX_NONE) return;
+		EPreDirection PreDirection = static_cast<EPreDirection>(Value);
+		OnPreDirection.Broadcast(FPreDirectionBlock(PreDirection));
+		break;
+	}
+		
+		
 	case EGameActionType::SpawnActor:
 		if (AFebriculaGameMode* GameMode = Cast<AFebriculaGameMode>(GetWorld()->GetAuthGameMode()))
 		{

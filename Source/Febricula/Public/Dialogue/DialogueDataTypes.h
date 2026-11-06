@@ -249,6 +249,8 @@ enum class EGameActionType : uint8
 	
 	FadeIn					UMETA(DisplayName = "페이드 인"),
 	
+	PreDirection			UMETA(DisplayName = "PreDirection 컨트롤"),
+	
 	SpawnActor				UMETA(DisplayName = "캐릭터 스폰"),
 	
 	ControlActor			UMETA(DisplayName = "액터 제어"),

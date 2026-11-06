@@ -8,6 +8,7 @@
 #include "GameFramework/PlayerController.h"
 #include "FebriculaPlayerController.generated.h"
 
+class USunControllerComponent;
 class AFebriculaCameraManager;
 class UInputAction;
 class UInputMappingContext;

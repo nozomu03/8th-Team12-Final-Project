@@ -6788,14 +6788,7 @@
     "SpeakerName": "",
     "SpeakerNpcId": "None",
     "Text": "조회 자체는 별 것 없었다.",
-    "OnEnterActions": [
-      {
-        "Type": "TimeAdvanceSchedule",
-        "Key": "None",
-        "Key2": "None",
-        "Value": 0
-      }
-    ],
+    "OnEnterActions": [],
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
@@ -6939,7 +6932,7 @@
     "AutoAdvance": "AfterDelay",
     "AutoAdvanceValue": 0.3,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "Cinematic",
       "Location": {
@@ -7733,7 +7726,7 @@
         "Type": "TimeAdvanceSchedule",
         "Key": "None",
         "Key2": "None",
-        "Value": 1
+        "Value": 0
       },
       {
         "Type": "PlaySE",
@@ -7785,7 +7778,7 @@
     "AutoAdvance": "AfterDelay",
     "AutoAdvanceValue": 0.3,
     "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": false,
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "Cinematic",
       "Location": {
@@ -8559,11 +8552,11 @@
         "Type": "FadeOut",
         "Key": "Black",
         "Key2": "None",
-        "Value": 3
+        "Value": 5
       },
       {
-        "Type": "ChangeLevel",
-        "Key": "SchoolOutside",
+        "Type": "TimeSetSchedule",
+        "Key": "Schedule.AfterSchool",
         "Key2": "None",
         "Value": 0
       }
@@ -8571,9 +8564,9 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "None",
+    "NextNodeId": "D2_06_02",
     "AutoAdvance": "AfterDelay",
-    "AutoAdvanceValue": 0.4,
+    "AutoAdvanceValue": 0.1,
     "AutoAdvanceNpcId": "None",
     "bHideBoxWhileWaiting": true,
     "Camera": {
@@ -8600,14 +8593,14 @@
     }
   },
   {
-    "Name": "D2_07",
-    "SpeakerName": "강천율",
-    "SpeakerNpcId": "PC_GangChunyul",
-    "Text": "(조례까진 자유시간이라고 했었지...)",
+    "Name": "D2_06_02",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
     "OnEnterActions": [
       {
-        "Type": "TimeAdvanceSchedule",
-        "Key": "None",
+        "Type": "ChangeLevel",
+        "Key": "SchoolOutside",
         "Key2": "None",
         "Value": 0
       }
@@ -8616,8 +8609,8 @@
     "bYesNo": false,
     "Branches": [],
     "NextNodeId": "None",
-    "AutoAdvance": "None",
-    "AutoAdvanceValue": 0.0,
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.1,
     "AutoAdvanceNpcId": "None",
     "bHideBoxWhileWaiting": false,
     "Camera": {
@@ -8845,24 +8838,24 @@
     "bYesNo": false,
     "Branches": [],
     "NextNodeId": "D2_09_001",
-    "AutoAdvance": "None",
-    "AutoAdvanceValue": 0.0,
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.1,
     "AutoAdvanceNpcId": "None",
     "bHideBoxWhileWaiting": false,
     "Camera": {
-      "CameraType": "None",
+      "CameraType": "Cinematic",
       "Location": {
-        "X": 0.0,
-        "Y": 0.0,
-        "Z": 0.0
+        "X": 2201.3,
+        "Y": -5353.5,
+        "Z": 284.6
       },
       "Rotation": {
         "Roll": 0.0,
-        "Pitch": 0.0,
-        "Yaw": 0.0
+        "Pitch": -13.4,
+        "Yaw": 33.0
       },
       "MoveTime": 0.0,
-      "Focus": 100000.0
+      "Focus": 10000.0
     },
     "DiceRoll": null,
     "SoundLocation": {
@@ -8918,64 +8911,21 @@
   },
   {
     "Name": "D2_11",
-    "SpeakerName": "",
-    "SpeakerNpcId": "None",
-    "Text": "",
+    "SpeakerName": "강천율",
+    "SpeakerNpcId": "PC_GangChunyul",
+    "Text": "[여보세요.]",
     "OnEnterActions": [
       {
         "Type": "StopSE",
         "Key": "First",
         "Key2": "None",
         "Value": 0
-      },
-      {
-        "Type": "FadeIn",
-        "Key": "None",
-        "Key2": "None",
-        "Value": 3
       }
     ],
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12",
-    "AutoAdvance": "AfterDelay",
-    "AutoAdvanceValue": 0.3,
-    "AutoAdvanceNpcId": "None",
-    "bHideBoxWhileWaiting": true,
-    "Camera": {
-      "CameraType": "None",
-      "Location": {
-        "X": 0.0,
-        "Y": 0.0,
-        "Z": 0.0
-      },
-      "Rotation": {
-        "Roll": 0.0,
-        "Pitch": 0.0,
-        "Yaw": 0.0
-      },
-      "MoveTime": 0.0,
-      "Focus": 100000.0
-    },
-    "DiceRoll": null,
-    "SoundLocation": {
-      "SoundChannel": "",
-      "SoundName": "",
-      "Target": "",
-      "Blend": 0.0
-    }
-  },
-  {
-    "Name": "D2_12",
-    "SpeakerName": "강천율",
-    "SpeakerNpcId": "PC_GangChunyul",
-    "Text": "[여보세요.]",
-    "OnEnterActions": [],
-    "Choices": [],
-    "bYesNo": false,
-    "Branches": [],
-    "NextNodeId": "D2_12_001",
+    "NextNodeId": "D2_11_001",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9004,7 +8954,7 @@
     }
   },
   {
-    "Name": "D2_12_001",
+    "Name": "D2_11_001",
     "SpeakerName": "삼촌",
     "SpeakerNpcId": "NPC_Uncle",
     "Text": "[뭐야, 바로 받았네.]",
@@ -9012,7 +8962,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_002",
+    "NextNodeId": "D2_11_002",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9041,7 +8991,7 @@
     }
   },
   {
-    "Name": "D2_12_002",
+    "Name": "D2_11_002",
     "SpeakerName": "삼촌",
     "SpeakerNpcId": "NPC_Uncle",
     "Text": "[몇 번은 해야 받을 줄 알았더니.]",
@@ -9049,7 +8999,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_003",
+    "NextNodeId": "D2_11_003",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9078,7 +9028,7 @@
     }
   },
   {
-    "Name": "D2_12_003",
+    "Name": "D2_11_003",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "[삼촌 전화면 바로 받아야죠.]",
@@ -9086,7 +9036,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_004",
+    "NextNodeId": "D2_11_004",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9115,7 +9065,7 @@
     }
   },
   {
-    "Name": "D2_12_004",
+    "Name": "D2_11_004",
     "SpeakerName": "삼촌",
     "SpeakerNpcId": "NPC_Uncle",
     "Text": "[아부해봤자 아무것도 안 나온다. 학교 끝났냐?]",
@@ -9123,7 +9073,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_005",
+    "NextNodeId": "D2_11_005",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9152,7 +9102,7 @@
     }
   },
   {
-    "Name": "D2_12_005",
+    "Name": "D2_11_005",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "[네. 이제 버스 타러 나왔어요.]",
@@ -9160,7 +9110,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_006",
+    "NextNodeId": "D2_11_006",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9189,7 +9139,7 @@
     }
   },
   {
-    "Name": "D2_12_006",
+    "Name": "D2_11_006",
     "SpeakerName": "삼촌",
     "SpeakerNpcId": "NPC_Uncle",
     "Text": "[아직 버스 안 왔지?]",
@@ -9197,7 +9147,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_007",
+    "NextNodeId": "D2_11_007",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9226,7 +9176,7 @@
     }
   },
   {
-    "Name": "D2_12_007",
+    "Name": "D2_11_007",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "[네. 10분 정도 남았네요.]",
@@ -9234,7 +9184,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_008",
+    "NextNodeId": "D2_11_008",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9263,7 +9213,7 @@
     }
   },
   {
-    "Name": "D2_12_008",
+    "Name": "D2_11_008",
     "SpeakerName": "삼촌",
     "SpeakerNpcId": "NPC_Uncle",
     "Text": "[뭐... 별건 아니고 저번에 했던 이야기 있잖아.]",
@@ -9271,7 +9221,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_009",
+    "NextNodeId": "D2_11_009",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9300,7 +9250,7 @@
     }
   },
   {
-    "Name": "D2_12_009",
+    "Name": "D2_11_009",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "[생활비요?]",
@@ -9308,7 +9258,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_010",
+    "NextNodeId": "D2_11_010",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9337,7 +9287,7 @@
     }
   },
   {
-    "Name": "D2_12_010",
+    "Name": "D2_11_010",
     "SpeakerName": "삼촌",
     "SpeakerNpcId": "NPC_Uncle",
     "Text": "[응. 너희 엄마랑 이야기를 해 봤는데 생활비 보내기엔 너무 빠듯하다고 하더라.]",
@@ -9345,7 +9295,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_011",
+    "NextNodeId": "D2_11_011",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9374,7 +9324,7 @@
     }
   },
   {
-    "Name": "D2_12_011",
+    "Name": "D2_11_011",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "[...그런가요.]",
@@ -9382,7 +9332,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_012",
+    "NextNodeId": "D2_11_012",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9411,7 +9361,7 @@
     }
   },
   {
-    "Name": "D2_12_012",
+    "Name": "D2_11_012",
     "SpeakerName": "삼촌",
     "SpeakerNpcId": "NPC_Uncle",
     "Text": "[그래. 버스 타면 다른 곳 들르지 말고 곧바로 고시원으로 들어와라. 자세한 이야기는 거기서 해줄 테니까.]",
@@ -9419,7 +9369,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_013",
+    "NextNodeId": "D2_11_013",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9448,7 +9398,7 @@
     }
   },
   {
-    "Name": "D2_12_013",
+    "Name": "D2_11_013",
     "SpeakerName": "강천율",
     "SpeakerNpcId": "PC_GangChunyul",
     "Text": "[알겠습니다.]",
@@ -9456,7 +9406,7 @@
     "Choices": [],
     "bYesNo": false,
     "Branches": [],
-    "NextNodeId": "D2_12_014",
+    "NextNodeId": "D2_11_014",
     "AutoAdvance": "None",
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
@@ -9485,7 +9435,7 @@
     }
   },
   {
-    "Name": "D2_12_014",
+    "Name": "D2_11_014",
     "SpeakerName": "",
     "SpeakerNpcId": "None",
     "Text": "",
@@ -11285,6 +11235,106 @@
     "AutoAdvanceValue": 0.0,
     "AutoAdvanceNpcId": "None",
     "bHideBoxWhileWaiting": false,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "Morning_Default_Skip1",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "PreDirection",
+        "Key": "InitialFadeOut",
+        "Key2": "None",
+        "Value": 0
+      },
+      {
+        "Type": "TimeSetSchedule",
+        "Key": "Schedule.AfterSchool",
+        "Key2": "None",
+        "Value": 0
+      },
+      {
+        "Type": "Teleport",
+        "Key": "Player",
+        "Key2": "DefaultStartPoint",
+        "Value": 0
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "Morning_Default_Skip2",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.1,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
+    "Camera": {
+      "CameraType": "None",
+      "Location": {
+        "X": 0.0,
+        "Y": 0.0,
+        "Z": 0.0
+      },
+      "Rotation": {
+        "Roll": 0.0,
+        "Pitch": 0.0,
+        "Yaw": 0.0
+      },
+      "MoveTime": 0.0,
+      "Focus": 100000.0
+    },
+    "DiceRoll": null,
+    "SoundLocation": {
+      "SoundChannel": "",
+      "SoundName": "",
+      "Target": "",
+      "Blend": 0.0
+    }
+  },
+  {
+    "Name": "Morning_Default_Skip2",
+    "SpeakerName": "",
+    "SpeakerNpcId": "None",
+    "Text": "",
+    "OnEnterActions": [
+      {
+        "Type": "PreDirection",
+        "Key": "InitialFadeIn",
+        "Key2": "None",
+        "Value": 0
+      }
+    ],
+    "Choices": [],
+    "bYesNo": false,
+    "Branches": [],
+    "NextNodeId": "None",
+    "AutoAdvance": "AfterDelay",
+    "AutoAdvanceValue": 0.1,
+    "AutoAdvanceNpcId": "None",
+    "bHideBoxWhileWaiting": true,
     "Camera": {
       "CameraType": "None",
       "Location": {

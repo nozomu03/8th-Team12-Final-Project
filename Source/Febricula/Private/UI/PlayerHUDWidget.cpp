@@ -129,7 +129,17 @@ void UPlayerHUDWidget::HandleDialogueFinished()
 	// 대화가 끝났는데 아직 상호작용 범위 안이면 프롬프트를 되살린다.
 	if (bPromptVisible)
 	{
-		BP_ShowInteractionPrompt(CachedPrompt);
+		if (UDialogueSubsystem* Dialogue = GetDialogueSubsystem())
+		{
+			if (Dialogue->GetPreDirectionEnd())
+			{
+				BP_ShowInteractionPrompt(CachedPrompt);
+			}
+		}
+		else
+		{
+			BP_ShowInteractionPrompt(CachedPrompt);
+		}
 	}
 }
 

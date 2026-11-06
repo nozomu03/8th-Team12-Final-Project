@@ -114,7 +114,7 @@ class Branch:
         return {
             "Conditions": [c.to_json() for c in self.conditions],
             "NextNodeId": self.target,
-        }
+        }   
 
 
 @dataclass

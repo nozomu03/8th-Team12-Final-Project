@@ -177,7 +177,7 @@ void UInteractionComponent::UpdateFocus()
 
 	if (HUDWidget)
 	{
-		if (FocusedActor.Get())
+		if (FocusedActor.Get() && Dialogue->GetPreDirectionEnd())
 		{
 			HUDWidget->ShowInteractionPrompt(IInteractable::Execute_GetInteractionPrompt(FocusedActor.Get(), OwnerActor));
 		}

@@ -14,6 +14,7 @@
 #include "GameMode/LevelSetting.h"
 #include "Interaction/InteractionComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Light/SunControllerComponent.h"
 #include "Progress/GameProgressSubsystem.h"
 #include "UI/PlayerHUDWidget.h"
 #include "Widgets/Input/SVirtualJoystick.h"
@@ -33,7 +34,7 @@ void AFebriculaPlayerController::AddWidget(UUserWidget* Widget)
     // 2. 스택에 위젯 추가
     OpenedWidgets.Add(Widget);
 	
-	Widget->AddToViewport();
+	Widget->AddToViewport(10000);
 	Widget->SetVisibility(ESlateVisibility::Visible);
 
     // 3. 0개 -> 1개가 되는 최초의 순간에만 IMC 교체 및 입력 모드 변경
@@ -162,6 +163,7 @@ bool AFebriculaPlayerController::RemoveWidget()
     return false;
 }
 
+
 void AFebriculaPlayerController::HandleRemove(const FInputActionValue& InputActionValue)
 {
 	UE_LOG(LogTemp, Warning, TEXT("HandleRemove() %d"), OpenedWidgets.Num());
@@ -216,11 +218,11 @@ void AFebriculaPlayerController::BeginPlay()
 			LocalPlayerSubsystem->AddMappingContext(Progress->GetInputMappingContext(), 0);
 		}
 	}
-	
 	if (UDialogueSubsystem* Dialogue = GetWorld()->GetSubsystem<UDialogueSubsystem>())
 	{
 		Dialogue->ApplyPreDirection(this, EPreDirection::InitialFadeOut);
 	}
+
 }
 
 void AFebriculaPlayerController::SetupInputComponent()
