@@ -1,5 +1,6 @@
 ﻿#include "UI/MapWidget.h"
 
+#include "FebriculaPlayerController.h"
 #include "Cache/ActorCacheSubsystem.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -9,12 +10,17 @@
 #include "Components/TextBlock.h"
 
 #include "Engine/World.h"
+#include "GameFramework/Character.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/MapButton.h"
 
-// 실제 프로젝트의 ActorCacheSubsystem 헤더 경로에 맞춰 수정
 
+UMapWidget::UMapWidget(const FObjectInitializer& OI) : Super(OI)
+{
+    SetIsFocusable(true);
+}
 
 void UMapWidget::NativeConstruct()
 {
@@ -69,7 +75,7 @@ void UMapWidget::NativeTick(
     {
         return;
     }
-
+    if (!Overlay_MapViewport || !MapImageSlot) return;
     const FVector2D ViewportSize =
         Overlay_MapViewport->GetCachedGeometry().GetLocalSize();
 
@@ -122,6 +128,22 @@ void UMapWidget::RefreshDisplayPoints()
     CreatePoiButtons();
 }
 
+void UMapWidget::OnMapButtonClicked(FVector Location)
+{
+    UE_LOG(LogTemp, Warning, TEXT("UMapWidget::OnMapButtonClicked: %f/%f/%f"), Location.X, Location.Y, Location.Z);
+    if (ACharacter* Player = UGameplayStatics::GetPlayerCharacter(this, 0))
+    {
+        Player->SetActorLocation(Location);
+        if (AController* Controller = Player->GetController())
+        {
+            if (AFebriculaPlayerController* FPC = Cast<AFebriculaPlayerController>(Controller))
+            {
+                FPC->RemoveWidget(this);
+            }
+        }
+    }
+}
+
 
 void UMapWidget::RemoveUnusedPoiButtons()
 {
@@ -164,16 +186,17 @@ void UMapWidget::CreatePoiButtons()
             continue;
         }
 
-        UButton* NewButton = NewObject<UButton>(this);
-        UTextBlock* ButtonText = NewObject<UTextBlock>(this);
-        ButtonText->SetText(FText::FromName(Point.PointName));
-        
-        NewButton->AddChild(ButtonText);
+        UMapButton* NewButton = NewObject<UMapButton>(this);
         
         if (!NewButton)
         {
             continue;
         }
+        
+        UTextBlock* ButtonText = NewObject<UTextBlock>(this);
+        ButtonText->SetText(FText::FromName(Point.PointName));
+        
+        NewButton->AddChild(ButtonText);
 
         UCanvasPanelSlot* ButtonSlot =
             Canvas_POI->AddChildToCanvas(NewButton);
@@ -196,6 +219,8 @@ void UMapWidget::CreatePoiButtons()
             Point.PointName,
             NewButton
         );
+        NewButton->Location = Point.Location;
+        NewButton->OnMapButtonClicked.AddUObject(this, &UMapWidget::OnMapButtonClicked);
     }
 }
 
@@ -203,14 +228,6 @@ void UMapWidget::CreatePoiButtons()
 // --------------------------------------------------
 // 지도 위치 계산
 // --------------------------------------------------
-
-void UMapWidget::TeleportPlayer(FVector Location)
-{
-    if (ACharacter* Player = UGameplayStatics::GetPlayerCharacter(this, 0))
-    {
-        
-    }
-}
 
 void UMapWidget::UpdateMapPosition()
 {
@@ -346,61 +363,57 @@ void UMapWidget::UpdatePoiPositions()
 
     for (const FDisplayPoint& Point : DisplayPoints)
     {
-        TObjectPtr<UButton>* FoundButton =
-            POIButtons.Find(Point.PointName);
-
-        if (!FoundButton || !IsValid(FoundButton->Get()))
+        if (TObjectPtr<UMapButton> FoundButton = POIButtons.FindRef(Point.PointName))
         {
-            continue;
+            // POI 월드 좌표를 지도 좌표로 변환
+            const float U = FMath::Clamp(
+                (Point.Location.Y - MapWorldMin.Y) / RangeY,
+                0.f,
+                1.f
+            );
+
+            const float V = 1.f - FMath::Clamp(
+                (Point.Location.X - MapWorldMin.X) / RangeX,
+                0.f,
+                1.f
+            );
+
+            const FVector2D POIMapPosition(
+                U * MapPixelSize.X,
+                V * MapPixelSize.Y
+            );
+
+            // 지도 이미지와 동일한 이동량 적용
+            const FVector2D ScreenPosition =
+                POIMapPosition + CurrentMapPosition;
+
+            const bool bInsideViewport =
+                ScreenPosition.X >= 0.f &&
+                ScreenPosition.X <= ViewportSize.X &&
+                ScreenPosition.Y >= 0.f &&
+                ScreenPosition.Y <= ViewportSize.Y;
+            
+            FoundButton->SetVisibility(
+                bInsideViewport
+                    ? ESlateVisibility::Visible
+                    : ESlateVisibility::Collapsed
+            );
+
+            if (!bInsideViewport)
+            {
+                continue;
+            }
+
+            UCanvasPanelSlot* ButtonSlot =
+                Cast<UCanvasPanelSlot>(FoundButton->Slot);
+
+            if (ButtonSlot)
+            {
+                ButtonSlot->SetPosition(ScreenPosition);
+            }
+            FoundButton->Location = Point.Location;
         }
 
-        // POI 월드 좌표를 지도 좌표로 변환
-        const float U = FMath::Clamp(
-            (Point.Location.Y - MapWorldMin.Y) / RangeY,
-            0.f,
-            1.f
-        );
-
-        const float V = 1.f - FMath::Clamp(
-            (Point.Location.X - MapWorldMin.X) / RangeX,
-            0.f,
-            1.f
-        );
-
-        const FVector2D POIMapPosition(
-            U * MapPixelSize.X,
-            V * MapPixelSize.Y
-        );
-
-        // 지도 이미지와 동일한 이동량 적용
-        const FVector2D ScreenPosition =
-            POIMapPosition + CurrentMapPosition;
-
-        const bool bInsideViewport =
-            ScreenPosition.X >= 0.f &&
-            ScreenPosition.X <= ViewportSize.X &&
-            ScreenPosition.Y >= 0.f &&
-            ScreenPosition.Y <= ViewportSize.Y;
-
-        UButton* Button = FoundButton->Get();
-
-        Button->SetVisibility(
-            bInsideViewport
-                ? ESlateVisibility::Visible
-                : ESlateVisibility::Collapsed
-        );
-
-        if (!bInsideViewport)
-        {
-            continue;
-        }
-
-        UCanvasPanelSlot* ButtonSlot =
-            Cast<UCanvasPanelSlot>(Button->Slot);
-
-        if (ButtonSlot)
-        {
-            ButtonSlot->SetPosition(ScreenPosition);
-        }
     }
+            
 }

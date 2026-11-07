@@ -14,7 +14,7 @@ void UActorCacheSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 FTransform UActorCacheSubsystem::GetTargetTransform(FName TargetTag, ETargetTypeRole TargetTypeRole)
 {
-	if (ATargetPoint* NowTarget = CachedTargetPoints.FindRef(TargetTag).Get())
+	if (AActor* NowTarget = CachedActors.FindRef(TargetTag).Get())
 	{
 		if (UTargetTypeComponent* TargetTypeComponent = NowTarget->GetComponentByClass<UTargetTypeComponent>())
 		{
@@ -34,7 +34,7 @@ FTransform UActorCacheSubsystem::GetTargetTransform(FName TargetTag, ETargetType
 
 FVector UActorCacheSubsystem::GetTargetLocation(FName TargetTag, ETargetTypeRole TargetTypeRole)
 {
-	if (ATargetPoint* NowTarget = CachedTargetPoints.FindRef(TargetTag).Get())
+	if (AActor* NowTarget = CachedActors.FindRef(TargetTag).Get())
 	{
 		if (UTargetTypeComponent* TargetTypeComponent = NowTarget->GetComponentByClass<UTargetTypeComponent>())
 		{
@@ -56,9 +56,9 @@ TArray<FDisplayPoint> UActorCacheSubsystem::GetTargetLocationByRole(ETargetTypeR
 {
 	TArray<FDisplayPoint> Locations;
 
-	for (const TPair<FName, TWeakObjectPtr<ATargetPoint>>& Pair : CachedTargetPoints)
+	for (const TPair<FName, TWeakObjectPtr<AActor>>& Pair : CachedActors)
 	{
-		ATargetPoint* Target = Pair.Value.Get();
+		AActor* Target = Pair.Value.Get();
 
 		if (!IsValid(Target))
 		{
@@ -86,13 +86,13 @@ TArray<FDisplayPoint> UActorCacheSubsystem::GetTargetLocationByRole(ETargetTypeR
 }
 
 // [skydodo] 2026-10-13 버그 수정: 태그가 없을 때 경고 후 '존재하지 않는 액터' 경고까지 이어서 찍던 것 수정
-bool UActorCacheSubsystem::AddActorToCache(ATargetPoint* Actor)
+bool UActorCacheSubsystem::AddActorToCache(AActor* Actor)
 {
 	if (Actor)
 	{
 		if (Actor->Tags.Num() > 0)
 		{
-			CachedTargetPoints.Add(Actor->Tags[0], Actor);
+			CachedActors.Add(Actor->Tags[0], Actor);
 			return true;
 		}
 		UE_LOG(LogTemp, Warning, TEXT("액터에 태그가 할당되지 않음"));
@@ -104,9 +104,9 @@ bool UActorCacheSubsystem::AddActorToCache(ATargetPoint* Actor)
 
 bool UActorCacheSubsystem::RemoveActorFromCache(FName TargetTag)
 {
-	if (CachedTargetPoints.Contains(TargetTag))
+	if (CachedActors.Contains(TargetTag))
 	{
-		CachedTargetPoints.Remove(TargetTag);
+		CachedActors.Remove(TargetTag);
 		return true;
 	}
 	UE_LOG(LogTemp, Warning, TEXT("캐싱되지 않은 Target Tag"))
@@ -115,7 +115,7 @@ bool UActorCacheSubsystem::RemoveActorFromCache(FName TargetTag)
 
 UTargetTypeComponent* UActorCacheSubsystem::GetTargetTypeComponent(FName TargetTag)
 {
-	if (ATargetPoint* Target = CachedTargetPoints.FindRef(TargetTag).Get())
+	if (AActor* Target = CachedActors.FindRef(TargetTag).Get())
 	{
 		if (UTargetTypeComponent* TargetTypeComponent = Target->GetComponentByClass<UTargetTypeComponent>())
 		{
@@ -130,9 +130,9 @@ UTargetTypeComponent* UActorCacheSubsystem::GetTargetTypeComponent(FName TargetT
 void UActorCacheSubsystem::PrintAllCachedTarget() const
 {
 	UE_LOG(LogTemp, Warning, TEXT("PrintAllCachedTarget"));
-	for (const TPair<FName, TWeakObjectPtr<ATargetPoint>>& Pair : CachedTargetPoints)
+	for (const TPair<FName, TWeakObjectPtr<AActor>>& Pair : CachedActors)
 	{
-		if (const ATargetPoint* Target = Pair.Value.Get())
+		if (const AActor* Target = Pair.Value.Get())
 		{
 			UE_LOG(LogTemp, Warning, TEXT("%s : %s : %s"), *Pair.Key.ToString(), *Target->GetActorLocation().ToString(), *Target->GetActorRotation().ToString());
 		}

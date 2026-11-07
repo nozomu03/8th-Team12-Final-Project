@@ -5,6 +5,7 @@
 #include "Cache/DisplayPoint.h"
 #include "MapWidget.generated.h"
 
+class UMapButton;
 class UButton;
 class UCanvasPanelSlot;
 class UImage;
@@ -26,6 +27,7 @@ protected:
 	) override;
 
 	void RefreshDisplayPoints();
+	void OnMapButtonClicked(FVector Location);
 	void CreatePoiButtons();
 	void UpdatePoiPositions();
 	void RemoveUnusedPoiButtons();
@@ -46,7 +48,7 @@ protected:
 	TObjectPtr<UCanvasPanel> Canvas_POI;
 
 	UPROPERTY()
-	TMap<FName, TObjectPtr<UButton>> POIButtons;
+	TMap<FName, TObjectPtr<UMapButton>> POIButtons;
 	
 	FVector2D CurrentMapPosition = FVector2D::ZeroVector;
 
@@ -66,9 +68,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Map")
 	TArray<FDisplayPoint> DisplayPoints;
 
-	UFUNCTION()
-	void TeleportPlayer(FVector Location);
-	
 private:
 	UPROPERTY()
 	TObjectPtr<UCanvasPanelSlot> MapImageSlot;
@@ -82,6 +81,7 @@ private:
 	void UpdateMapPosition(const FVector& WorldLocation);
 
 public:
+	UMapWidget(const FObjectInitializer& OI);
 	// 공용 UI 시스템에서 맵을 다시 표시할 때 호출
 	void RequestMapRefresh();
 };

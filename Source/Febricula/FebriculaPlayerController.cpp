@@ -34,8 +34,14 @@ void AFebriculaPlayerController::AddWidget(UUserWidget* Widget)
 	Widget->SetOwningPlayer(this);
     // 2. 스택에 위젯 추가
     OpenedWidgets.Add(Widget);
-	
-	Widget->AddToViewport(10000);
+	if (!Widget->IsInViewport())
+	{
+		Widget->AddToViewport(10000);
+	}
+	else
+	{
+		Widget->SetVisibility(ESlateVisibility::Visible);
+	}
 	if (UMapWidget* MapWidget = Cast<UMapWidget>(Widget))
 	{
 		MapWidget->RequestMapRefresh();
@@ -72,23 +78,31 @@ int32 AFebriculaPlayerController::GetWidgetCount()
 	return OpenedWidgets.Num();
 }
 
-bool AFebriculaPlayerController::RemoveWidget()
+bool AFebriculaPlayerController::RemoveWidget(UUserWidget* Widget)
 {
 	if (OpenedWidgets.Num() > 0)
 	{
-		UUserWidget* LastWidget = OpenedWidgets.Pop();
-		UE_LOG(LogTemp, Warning, TEXT("Removing Widget %s"), *LastWidget->GetName());
+		if (Widget)
+		{
+			OpenedWidgets.Remove(Widget);
+		}
+		else
+		{
+			Widget = OpenedWidgets.Pop();
+		}
+		
+		UE_LOG(LogTemp, Warning, TEXT("Removing Widget %s"), *Widget->GetName());
 		UE_LOG(LogTemp, Warning, TEXT("RemoveWidget() %d"), OpenedWidgets.Num());
 		GetWidgetCount();
 
-		if (LastWidget)
+		if (Widget)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("지우기 전 IsInViewport: %s"), LastWidget->IsInViewport() ? TEXT("True") : TEXT("False"));
+			UE_LOG(LogTemp, Warning, TEXT("지우기 전 IsInViewport: %s"), Widget->IsInViewport() ? TEXT("True") : TEXT("False"));
 
-			LastWidget->SetVisibility(ESlateVisibility::Hidden);
+			Widget->SetVisibility(ESlateVisibility::Hidden);
 
-			UE_LOG(LogTemp, Warning, TEXT("지운 후 IsInViewport: %s"), LastWidget->IsInViewport() ? TEXT("True") : TEXT("False"));
-			UE_LOG(LogTemp, Warning, TEXT("지운 후 IsVisible: %s"), LastWidget->IsVisible() ? TEXT("True") : TEXT("False"));
+			UE_LOG(LogTemp, Warning, TEXT("지운 후 IsInViewport: %s"), Widget->IsInViewport() ? TEXT("True") : TEXT("False"));
+			UE_LOG(LogTemp, Warning, TEXT("지운 후 IsVisible: %s"), Widget->IsVisible() ? TEXT("True") : TEXT("False"));
 		}
 	}
 

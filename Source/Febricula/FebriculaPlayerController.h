@@ -31,7 +31,7 @@ public:
 	int32 GetWidgetCount();
 
 	UFUNCTION(BlueprintCallable, Category = "Input | OpenedWidget")
-	bool RemoveWidget();
+	bool RemoveWidget(UUserWidget* Widget = nullptr);
 
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Input | Default Widget")

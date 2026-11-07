@@ -25,9 +25,6 @@ void UTargetTypeComponent::BeginPlay()
 	Super::BeginPlay();
 	if (UActorCacheSubsystem* CacheSubsystem = GetWorld()->GetSubsystem<UActorCacheSubsystem>())
 	{
-		if (ATargetPoint* TargetPoint = Cast<ATargetPoint>(GetOwner()))
-		{
-			CacheSubsystem->AddActorToCache(TargetPoint);
-		}
+		CacheSubsystem->AddActorToCache(GetOwner());
 	}
 }
